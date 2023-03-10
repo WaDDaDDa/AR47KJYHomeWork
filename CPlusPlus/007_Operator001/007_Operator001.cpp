@@ -38,7 +38,19 @@ int main()
 	Result = Left--; // Result 8,  Left 7
 
 	// 연산자 순서.
-	// 1. 전위 괄호 곱셈나눗셈 대입 후위 순으로 ---- 좀더 공부할것 정확하게
+	// 1. 전위 
+	// 2. 괄호
+	// 3. 단항연산자
+	// 4. * / %
+	// 5. + -
+	// 6. << >>
+	// 7. 비교 연산자
+	// 8. 관계 연산자
+	// 9. & ^ |
+	// 10. 논리 연산자 && ||
+	// 11. 대입 연산자 = += -= *= /= %=
+	// 12. 후위
+	// 순서 입니다.
 	Result = 1 + 2 * 3;
 	// () 괄호 연산자
 	Result = (1 + 2) * 3;
@@ -48,8 +60,38 @@ int main()
 	// true는 논리형 상수 참 == 0이아닌 다른수
 	// false는 논리형 상수 거짓 == 0
 
+	// 비교 연산자  관계 연산자.
 	bool bResult = true;
 	bResult = false;
+
+	bResult = Left == Right;  // 같다의 의미.
+	bResult = Left != Right;  // 같지 않다의 의미.
+	bResult = Left < Right;   // 왼쪽이 오른쪽보다 작다.
+	bResult = Left > Right;   // 왼쪽이 오른쪽보다 크다.
+	bResult = Left <= Right;  // 왼쪽이 오른쪽보다 작거나 같다.
+	bResult = Left >= Right;  // 왼쪽이 오른쪽보다 크거나 같다.
+
+	// 논리 연산자.
+	// and 연산자.
+	// 둘다 참이라면 참 하나라도 거짓이라면 거짓.
+	bResult = true && true; // 참
+	bResult = true && false;  // 거짓
+	bResult = false && false; // 거짓
+
+	// or 연산자.
+	// 둘중 하나라도 참이라면 참.
+	bResult = true || true;  // 참
+	bResult = true || false; // 참
+	bResult = false || false;  // 거짓
+
+	
+	int a = 5;
+	int b = 4;
+	int  c = 0;
+	c = a + b * ++b;  //의 c 값 30
+	c = (a + b) * ++b; //의 c 값 괄호보다 전위가 더 먼저 계산된다.
+	c = a + b * b++; //의 c 값 41인데 b == 7
+	c = (a + b) * b++; //의 c 값 84  b == 8
 
 
 
