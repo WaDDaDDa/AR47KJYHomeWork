@@ -84,7 +84,7 @@ int main()
 	bResult = true || false; // 참
 	bResult = false || false;  // 거짓
 
-	
+	// 괄호연산과 전위 후위 연산의 순서를 알기위한 테스트 코드.	
 	int a = 5;
 	int b = 4;
 	int  c = 0;
