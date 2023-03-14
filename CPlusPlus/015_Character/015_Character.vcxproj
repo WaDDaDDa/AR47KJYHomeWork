@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{28c76c81-6366-470c-b1a4-e76527373949}</ProjectGuid>
-    <RootNamespace>My014Printf</RootNamespace>
+    <ProjectGuid>{ec9c7088-fc61-49d3-9132-77ef1dff0f2f}</ProjectGuid>
+    <RootNamespace>My015Character</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -127,7 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="014_Printf.cpp" />
+    <ClCompile Include="015_Character.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
