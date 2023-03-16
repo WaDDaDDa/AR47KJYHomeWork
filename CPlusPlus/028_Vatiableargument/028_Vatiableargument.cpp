@@ -46,14 +46,16 @@ void TestFunction2(int _1, ...)
     int Value0 = ptr[0];  // == 5
     int Value2 = ptr[2];  // == 1
     int Value4 = ptr[4];  // == 2
-    char Value6 = ptr[5];  // == 3
+    int Value6 = ptr[6];  // == 3
     int Value8 = ptr[8];  // == 4
     int Value10 = ptr[10]; // == 5
     int Value12 = ptr[12]; // == ? 쓰레기 값
 }
 
-
-
+int main()
+{
+    TestFunction2(5, 1, 2, 3, 4, 5);
+}
 
 
 
@@ -70,7 +72,9 @@ int main()
 
     TestFunction(10, 20, 303);
 
-    TestFunction2(5, 1, 2, "5", 4, 5);  //뒤에있는 1,2,3,4,5를 내부에서 찾아낼수 있나. tset해보아라.
+    TestFunction2(5, 1, 2, 3, 4, 5);  //뒤에있는 1,2,3,4,5를 내부에서 찾아낼수 있나. tset해보아라.
+    // 인자에 문자와 숫자가 섞여있을때 찾는방법.
+
 
     int a = 0;
 
