@@ -32,7 +32,7 @@ void MyPrintf_Test3(const char* const _ptr, ...) //가변인자에 접근 하려
         putchar(CH);
         ++count;
     }
-    CH = _ptr[18]; 
+    CH = _ptr[25]; 
     putchar(CH);
 }
 
@@ -47,7 +47,7 @@ int main()
 
     MyPrintf_Test2("ads154"); // while 반복문을 적용시켰을때.
 
-    MyPrintf_Test3("abcdefgh", "34"); // 100번지에 a가 있다면. 
+    MyPrintf_Test3("abcdefgh", "12345678"); // 100번지에 a가 있다면. 
     // 101번지 a
     // 102번지 b
     // 103번지 c
@@ -62,5 +62,6 @@ int main()
     // 추측 2 : 애초에 인자에 접근하는 바이트 계산을 잘못해서.
 
     int a = 0;
+    
 }
 
