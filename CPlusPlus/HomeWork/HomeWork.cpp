@@ -26,14 +26,14 @@ int TrimDelete(char* _String)  // 완성.  띄어쓰기를 지워주는 함수.
 
     while (0 != _String[count])
     {
-        char A = _String[count];
-        if (' ' == A)
+        char Value = _String[count];
+        if (' ' == Value)
         {
             count++;
         }
         else
         {
-            putchar(A);
+            putchar(Value);
             count++;
         }
     }
