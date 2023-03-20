@@ -5,6 +5,7 @@
 
 // 문자열을 넣어주면 글자 개수를 알아냅니다.
 // 0을 포함할지 아닐지는 스스로 정하세요
+
 int StringCount(const char* _String)  // 완성.
 {
     int count = 0;
