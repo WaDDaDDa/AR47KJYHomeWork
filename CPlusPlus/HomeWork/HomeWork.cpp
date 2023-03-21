@@ -5,7 +5,6 @@
 
 // 문자열을 넣어주면 글자 개수를 알아냅니다.
 // 0을 포함할지 아닐지는 스스로 정하세요
-
 int StringCount(const char* _String)  // 완성.
 {
     int count = 0;
@@ -15,7 +14,7 @@ int StringCount(const char* _String)  // 완성.
         char A = _String[count];
         count++;
     }
-    
+
     count++;
     return count;
 }
@@ -26,14 +25,14 @@ int TrimDelete(char* _String)  // 완성.  띄어쓰기를 지워주는 함수.
 
     while (0 != _String[count])
     {
-        char Value = _String[count];
-        if (' ' == Value)
+        char A = _String[count];
+        if (' ' == A)
         {
             count++;
         }
         else
         {
-            putchar(Value);
+            putchar(A);
             count++;
         }
     }
@@ -43,7 +42,7 @@ int TrimDelete(char* _String)  // 완성.  띄어쓰기를 지워주는 함수.
 
 int StringToInt(const char* _String)  // 숫자로된 문자열을 int로 변환해주는 함수.
 {
-    
+
     int num = 0;
     int count = 0;
     while (_String[count] != 0)
