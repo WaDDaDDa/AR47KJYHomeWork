@@ -11,6 +11,11 @@ public:
     const char* Name;
     int Att;
     int Hp;
+    
+    void GetDamage(int _Att) 
+    {
+        Hp = Hp - _Att;
+    }
 };
 
 void StatusRender(
@@ -27,8 +32,10 @@ void Damage(
     Player _Defnder
 )
 {
-    _Defnder.Hp -= _Attker.Att; // 함수가 끝남과동시에 값이 날라가는데 이유가 뭘까
+    _Defnder.GetDamage(_Attker.Att);
 
+    //_Defnder.Hp -= _Attker.Att; // 함수가 끝남과동시에 값이 날라가는데 이유가 뭘까
+    _Defnder.Hp;
 }
 
 void DamageRender(
