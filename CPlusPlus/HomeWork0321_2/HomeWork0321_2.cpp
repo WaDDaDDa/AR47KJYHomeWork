@@ -29,9 +29,17 @@ void Damage(
 {
     _Defnder.Hp -= _Attker.Att; // 함수가 끝남과동시에 값이 날라가는데 이유가 뭘까
 
+}
+
+void DamageRender(
+    Player _Attker,
+    Player _Defnder
+)
+{
     printf_s("%s가 공격을 시작합니다\n", _Attker.Name);
     printf_s("%s가 %d의 데미지를 입었습니다.\n", _Defnder.Name, _Attker.Att);
 }
+
 
 int main()
 {
@@ -61,6 +69,7 @@ int main()
         Damage(NewPlayer, NewMonster); //플레이어 공격.
         StatusRender(NewPlayer);
         StatusRender(NewMonster);
+        DamageRender(NewPlayer, NewMonster);
         _getch();
 
         if (0 >= NewMonster.Hp)
@@ -76,6 +85,7 @@ int main()
         Damage(NewMonster, NewPlayer); // 몬스터 공격
         StatusRender(NewPlayer);
         StatusRender(NewMonster);
+        DamageRender(NewMonster, NewPlayer);
         _getch();
 
         if (0 >= NewPlayer.Hp)
