@@ -21,7 +21,7 @@ void StatusRender(
     printf_s("체력 : %d\n", _Hp);
     printf_s("---------------------------\n");
 }
-
+// 클래스를 적용해서 인자를 플레이어랑 몬스터만 받아서 진행 시킬수 있을까
 void Damage(
     const char* const _AttName, // 때리는 족의 이름
     const char* const _DefName, // 맞는 쪽의 이름
