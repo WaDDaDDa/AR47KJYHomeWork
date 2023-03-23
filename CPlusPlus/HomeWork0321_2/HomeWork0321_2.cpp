@@ -74,6 +74,7 @@ int main()
         system("cls");
 
         Damage(NewPlayer, NewMonster); //플레이어 공격.
+        int Hpstatus = NewMonster.Hp;
         StatusRender(NewPlayer);
         StatusRender(NewMonster);
         DamageRender(NewPlayer, NewMonster);
