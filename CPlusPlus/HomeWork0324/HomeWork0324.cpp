@@ -41,12 +41,19 @@
 // bool 을 이용해서 1이면 a를 0이면 폭탄을 만들도록 지정한 다음에 만들 수있을까?
 // 가능하면 nullptr을 폭탄으로 할수있을거 같은데. 
 
+
 int main()
 {
-	const int ScreenYSize = 8;
-	const int ScreenXSize = 8;
+	const int ScreenYSize = 5;
+	const int ScreenXSize = 5;
 
 	char Arr[ScreenYSize][ScreenXSize] = { 0, };
+
+	char BombArr[1] = {'@'};
+	char* BombPtr = BombArr;
+
+	char Player[1] = {'*'};
+	char* PlayerPtr = Player;
 
 	/*for (size_t y = 0; y < ScreenYSize; y++)
 	{
@@ -75,16 +82,30 @@ int main()
 		// 배열 크기만큼 a를 넣어주는것.  
 		// if 를 사용해서 만약 nullptr이 아니라면 a를 넣어준다 가 된다면?
 		// nullptr이라면 @ 근데 직접적인 대입은 불가능함.
+
 		for (size_t y = 0; y < ScreenYSize; y++)
 		{
 			for (size_t x = 0; x < ScreenXSize; x++)
 			{
+				if (Arr[y][x] == *BombPtr)
+				{
+					continue;
+				}
 				Arr[y][x] = 'a';
 			}
 		}
-		Arr[PlayerY][PlayerX] = '*';
+
+		if (Arr[PlayerY][PlayerX] == *BombPtr)
+		{
+			Arr[PlayerY][PlayerX] = *BombPtr;
+		}
+		else
+		{
+			Arr[PlayerY][PlayerX] = *Player;
+		}
+		// Arr[PlayerY][PlayerX] = '*';
 		Arr[BlockY][BlockX] = ' ';
-		Arr[BombY][BombX] = '@';   // 버퍼 오버런 없이 초기에 폭탄을 안보이게 하는 방법?
+		// Arr[BombY][BombX] = '@';   // 버퍼 오버런 없이 초기에 폭탄을 안보이게 하는 방법?
 		                           // nullptr일 경우 폭탄이 나오게 한다면?
 		                           // 초반에 nullptr로 선언하고 그 배열이 nullptr이면 @폭탄
 
@@ -132,8 +153,7 @@ int main()
 			break;
 		case 'f':
 		case 'F':
-			BombY = PlayerY;
-			BombX = PlayerX;
+			Arr[PlayerY][PlayerX] = *BombPtr;
 			break;
 		default:
 			break;
