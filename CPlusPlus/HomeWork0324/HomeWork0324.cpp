@@ -1,7 +1,4 @@
-﻿// HomeWork0324.cpp : 이 파일에는 'main' 함수가 포함됩니다. 거기서 프로그램 실행이 시작되고 종료됩니다.
-//
-
-#include <iostream>
+﻿#include <iostream>
 #include <conio.h>
 // 운영체제가 도와줄수밖에 없다.
 #include <Windows.h>
