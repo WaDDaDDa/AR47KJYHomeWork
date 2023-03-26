@@ -22,10 +22,10 @@
 // 숙제 3                               // 해결.
 // 장애물 만들고 배치하세요 당연히 플레이어는 거기로 못갑니다.
 
-// 숙제 4                              // 기능은 하는데 폭탄이 없는 초기상태가 불안함. (버퍼 오버런)
+// 숙제 4                              // 해결.
 // 폭탄 f를 누를면 폭탄이 설치되고 눈에 보여야 합니다. 폭탄 @
-
-// 숙제 5
+ 
+// 숙제 5                                    //  미해결...
 // 일정시간이 지나고 폭탄이 터지면서
 //     @
 //     @
@@ -35,37 +35,30 @@
 //     @
 //     @
 
-// bool 을 이용해서 1이면 a를 0이면 폭탄을 만들도록 지정한 다음에 만들 수있을까?
-// 가능하면 nullptr을 폭탄으로 할수있을거 같은데. 
-
-
 int main()
 {
-	const int ScreenYSize = 5;
-	const int ScreenXSize = 5;
+	const int ScreenYSize = 10;
+	const int ScreenXSize = 10;
 
 	char Arr[ScreenYSize][ScreenXSize] = { 0, };
 
-	char BombArr[1] = {'@'};
+	char BombArr[1] = {'@'};  // 폭탄
 	char* BombPtr = BombArr;
 
-	char Player[1] = {'*'};
+	char Player[1] = {'*'};  // 플레이어
 	char* PlayerPtr = Player;
 
-	/*for (size_t y = 0; y < ScreenYSize; y++)
-	{
-		for (size_t x = 0; x < ScreenXSize; x++)
-		{
-			Arr[y][x] = 'a';
-		}
-	}*/
+	char Map[1] = { 'a' };   // 맵
+	char* MapPtr = Map;
 
-	// 정수를 정수로 나오면 실수는 버리고 정수의 값만 나옵니다.
+	char Block[1] = { 'O' };
+	char* BlockPtr = Block;
+
 	int PlayerY = ScreenYSize / 2;
 	int PlayerX = ScreenXSize / 2;
 	// X Y가 Size 변수 값보다 작거나 커지지 않으면 된다.  == 테두리 바깥으로 나가는거 제어는 가능.
 	// 하지만 텔레포트 하는 듯한 이동의 제어는 되지 않음.  다른 방법.
-	// 텔레포트 제어는. 
+	// 텔레포트 제어는.  
 
 	const int BlockY = ScreenYSize / 4;
 	const int BlockX = ScreenXSize / 4;
@@ -76,37 +69,31 @@ int main()
 	while (true)
 	{
 		system("cls");
-		// 배열 크기만큼 a를 넣어주는것.  
-		// if 를 사용해서 만약 nullptr이 아니라면 a를 넣어준다 가 된다면?
-		// nullptr이라면 @ 근데 직접적인 대입은 불가능함.
 
-		for (size_t y = 0; y < ScreenYSize; y++)
+		for (size_t y = 0; y < ScreenYSize; y++)     // 배열에 기본 map데이터 넣어주기
 		{
 			for (size_t x = 0; x < ScreenXSize; x++)
 			{
-				if (Arr[y][x] == *BombPtr)
+				if (Arr[y][x] == *BombPtr)          // 폭탄이면 맵데이터 넣지않음.
 				{
 					continue;
 				}
-				Arr[y][x] = 'a';
+				Arr[y][x] = *Map;
 			}
 		}
 
-		if (Arr[PlayerY][PlayerX] == *BombPtr)
+		if (Arr[PlayerY][PlayerX] == *BombPtr)     // 플레이어 자리가 폭탄이면 == 폭탄을 눌렀을때.
 		{
-			Arr[PlayerY][PlayerX] = *BombPtr;
+			Arr[PlayerY][PlayerX] = *BombPtr;      // 폭탄 대입
 		}
 		else
 		{
-			Arr[PlayerY][PlayerX] = *Player;
+			Arr[PlayerY][PlayerX] = *Player;        // 아니면 플레이어 대입
 		}
-		// Arr[PlayerY][PlayerX] = '*';
-		Arr[BlockY][BlockX] = ' ';
-		// Arr[BombY][BombX] = '@';   // 버퍼 오버런 없이 초기에 폭탄을 안보이게 하는 방법?
-		                           // nullptr일 경우 폭탄이 나오게 한다면?
-		                           // 초반에 nullptr로 선언하고 그 배열이 nullptr이면 @폭탄
 
-		for (size_t y = 0; y < ScreenYSize; y++)
+		Arr[BlockY][BlockX] = *Block;             // 장애물
+
+		for (size_t y = 0; y < ScreenYSize; y++)   // 실질적인 화면 출력
 		{
 			for (size_t x = 0; x < ScreenXSize; x++)
 			{
@@ -150,13 +137,19 @@ int main()
 			break;
 		case 'f':
 		case 'F':
-			Arr[PlayerY][PlayerX] = *BombPtr;
+			if (Arr[PlayerY][PlayerX] == *BombPtr)  // 폭탄위치에서 폭탄키 다시 누르면 폭탄 제거
+			{
+				Arr[PlayerY][PlayerX] = *Player;
+				break;
+			}
+			Arr[PlayerY][PlayerX] = *BombPtr;      // 제자리 폭탄 설치.
+			break;
 			break;
 		default:
 			break;
 		}
 
-		if (PlayerY >= ScreenYSize)   // 벽 넘나들지 못하게 하는것.
+		if (PlayerY >= ScreenYSize)   // 배열 밖을 넘나들지 못하게 하기.
 		{
 			PlayerY -= 1;
 			continue;
@@ -177,7 +170,7 @@ int main()
 			continue;
 		}
 
-		if (Arr[PlayerY][PlayerX] == Arr[BlockY][BlockX])    // 장애물 못가게하는 것.
+		if (Arr[PlayerY][PlayerX] == Arr[BlockY][BlockX])    // 장애물 못가게
 		{
 			switch (Ch)
 			{
