@@ -22,16 +22,6 @@ public:
 		return { X / 3, Y / 3 };
 	}
 
-	int2 Half4()
-	{
-		return { X / 4 , Y / 4 };
-	}
-
-	int2 Half5()
-	{
-		return { X / 5 + 3, Y / 5 + 3};
-	}
-
 public:
 	int2(int _X, int _Y)
 		: X(_X), Y(_Y)
@@ -48,8 +38,8 @@ class ConsoleGameScreen
 public:
 	// 클래스 내부에 전역변수를 선언할수가 있습니다.
 	// Map 크기/
-	static const int ScreenYSize = 10;
-	static const int ScreenXSize = 20;
+	static const int ScreenYSize = 4;
+	static const int ScreenXSize = 4;
 
 	static int2 GetScreenSize()
 	{
@@ -63,6 +53,10 @@ public:
 		{
 			for (size_t x = 0; x < ScreenXSize; x++)
 			{
+				/*if (Arr[y][x] == '@')  // 폭탄 위치가 트루면 a 넣지않는다 == 폭탄 여러개 생성 가능.
+				{
+					continue;
+				}*/
 				Arr[y][x] = 'a';
 			}
 		}
@@ -82,6 +76,7 @@ public:
 	}
 
 	// 이녀석을 무조건 사용해서 플레이어가 바깥으로 못나가게 만드세요.
+	// 배열 바깥이면 true를 반환한다.
 	bool IsScreenOver(const int2& _Pos)
 	{
 		if (0 > _Pos.X)
@@ -109,12 +104,12 @@ public:
 
 	void SetScreenCharacter(const int2& _Pos, char _Ch)
 	{
-		if (true == IsScreenOver(_Pos))
+		if (true == IsScreenOver(_Pos))  //배열 바깥에는 반환하지 않는다.
 		{
 			return;
 		}
 
-		Arr[_Pos.Y][_Pos.X] = _Ch;
+		Arr[_Pos.Y][_Pos.X] = _Ch;  // 그 배열에 문자를 넣는다.
 	}
 
 private:
@@ -125,7 +120,6 @@ private:
 class Block
 {
 public:
-
 	int2 GetPos() const
 	{
 		return Pos;
@@ -156,7 +150,6 @@ private:
 };
 
 /////////////////////////////////////////////////////////////////// 엔진
-
 
 // 2단계 컨텐츠
 // 클래스가 다른 클래스를 알아야 합니다.
@@ -192,25 +185,41 @@ public:
 		this->CH = _getch();
 	}
 
-	void Move(Player _Player)
+	void Move(Player _Player, ConsoleGameScreen _Screen, Block _Block)
 	{
 		switch (_Player.CH)
 		{
 		case 'a':
 		case 'A':
-			Pos.X -= 1;
+			Pos.X -= 1;     //여기 에서 넣어준 값이 GetPos에 반영이 되어야함.
+			if (_Screen.IsScreenOver(GetPos()) || _Block.IsBlockOver(GetPos()))
+			{
+				Pos.X += 1;
+			}
 			break;
 		case 'd':
 		case 'D':
 			Pos.X += 1;
+			if (_Screen.IsScreenOver(GetPos()) || _Block.IsBlockOver(GetPos()))
+			{
+				Pos.X -= 1;
+			}
 			break;
 		case 'w':
 		case 'W':
 			Pos.Y -= 1;
+			if (_Screen.IsScreenOver(GetPos()) || _Block.IsBlockOver(GetPos()))
+			{
+				Pos.Y += 1;
+			}
 			break;
 		case 's':
 		case 'S':
 			Pos.Y += 1;
+			if (_Screen.IsScreenOver(GetPos()) || _Block.IsBlockOver(GetPos()))
+			{
+				Pos.Y -= 1;
+			}
 			break;
 		default:
 			break;
@@ -219,65 +228,18 @@ public:
 		Sleep(InterFrame);
 	}
 
-	void BlanckCheck(ConsoleGameScreen _NewScreen, Player _Player) // 콘솔의 여부
+	/*void CreateBomb(Block _Bomb)  // 폭탄 생성 함수로 만들려던거.
 	{
-		if (true == _NewScreen.IsScreenOver(_Player.GetPos()))
-		{
-			switch (_Player.CH)
-			{
-			case 'a':
-			case 'A':
-				this->Pos.X += 1;
-				break;
-			case 'd':
-			case 'D':
-				this->Pos.X -= 1;
-				break;
-			case 'w':
-			case 'W':
-				this->Pos.Y += 1;
-				break;
-			case 's':
-			case 'S':
-				this->Pos.Y -= 1;
-				break;
-			default:
-				break;
-			}
-
-			Sleep(InterFrame);
-		}
-	}
-
-	void BlockCheck(Block _Block, Player _Player) //블록의 여부
+	switch (CH)
 	{
-		if (true == _Block.IsBlockOver(_Player.GetPos()))
-		{
-			switch (_Player.CH)
-			{
-			case 'a':
-			case 'A':
-				this->Pos.X += 1;
-				break;
-			case 'd':
-			case 'D':
-				this->Pos.X -= 1;
-				break;
-			case 'w':
-			case 'W':
-				this->Pos.Y += 1;
-				break;
-			case 's':
-			case 'S':
-				this->Pos.Y -= 1;
-				break;
-			default:
-				break;
-			}
-
-			Sleep(InterFrame);
-		}
+	case 'f':
+	case 'F':  //누를 때 마다 새로운 폭탄개체를 만들 방법
+		_Bomb.SetPos(GetPos());
+		break;
+	default:
+		break;
 	}
+	}*/
 
 protected:
 
@@ -295,14 +257,15 @@ int main()
 	Block NewBlock0;             // 새로운 블럭개체를 선언하지 않고 블럭을여러개 만들 방법
 	Block NewBlock1;
 	Block NewBlock2;
-	Block NewBomb;
+	Block NewBomb;       // NewBomb이 배열안에 없으면 출력하지 않는다.
+	// IsScreenOver(GetPos()) 이 트루면 
+	// 배열안에 있으면 출력한다.   is
 	// int2 NewPos = int2{ 5, 5 };
 
 	int2 ScreenSize = NewScreen.GetScreenSize();
+
 	NewPlayer.SetPos(ScreenSize.Half());
 	NewBlock0.SetPos(ScreenSize.Half3());
-	NewBlock1.SetPos(ScreenSize.Half4());
-	NewBlock2.SetPos(ScreenSize.Half5());
 
 	
 
@@ -310,29 +273,26 @@ int main()
 	{
 		system("cls");
 
-		NewScreen.ScreenClear();  // 맵을 기본값으로 초기화.
+		NewScreen.ScreenClear();  // 맵을 a으로 초기화.
 
 		NewScreen.SetScreenCharacter(NewPlayer.GetPos(), '*'); // 그후 플레이어 생성
 		
 		NewScreen.SetScreenCharacter(NewBlock0.GetPos(), 'O');  // 장애물 생성
-		NewScreen.SetScreenCharacter(NewBlock1.GetPos(), 'O');
-		NewScreen.SetScreenCharacter(NewBlock2.GetPos(), 'O');
 
-		NewScreen.SetScreenCharacter(NewBomb.GetPos(), '@');  // 폭탄 설치
-
+		NewScreen.SetScreenCharacter(NewBomb.GetPos(), '@');  // 초기 폭탄위치값을 어떻게 해야하나.
+		                                                      // 폭탄이 없는 상태를 표현할 방법.
 
 		NewScreen.ScreenPrint();           // 화면 출력.
 		 
-		NewPlayer.CH = 0; // 받은 키 초기화. 받은키가 계속 남아있어서 현상이 생김
+		NewPlayer.CH = 0; // 받은 키 초기화. 받은키가 계속 남아있어서 그 키가 반복되는 현상이 생김
 
 		NewPlayer.InputKey(NewPlayer);  // 기다리고 키를 받는것.
 
-		NewPlayer.Move(NewPlayer);   // 위에서 받은 키를 통해 이동.
+		NewPlayer.Move(NewPlayer, NewScreen, NewBlock0);   // 위에서 받은 키를 통해 이동.
 
-		NewPlayer.BlanckCheck(NewScreen, NewPlayer);  // 이동한곳이 막혔다면 받은키를 바탕으로 원상복구.
-		NewPlayer.BlockCheck(NewBlock0, NewPlayer);   // 블럭개체를 만들때마다 코드를 추가하지않고
-		NewPlayer.BlockCheck(NewBlock1, NewPlayer);   // block 클래스 전체를 체크할 방법?
-		NewPlayer.BlockCheck(NewBlock2, NewPlayer);
+		//NewPlayer.CreateBomb(NewBomb);
+
+		// 배열 바깥이면 true를 반환한다.
 
 		switch (NewPlayer.CH)
 		{
