@@ -175,10 +175,9 @@ public:
 	{
 		if (0 == _kbhit())
 		{
-			// 0.5초간 멈춘다.
+
 			Sleep(InterFrame);
-			// 일부러 멈추게 만들겁니다.
-			// continue; 반복문 내부에서만 사용가능
+
 			return;
 		}
 
@@ -191,7 +190,7 @@ public:
 		{
 		case 'a':
 		case 'A':
-			Pos.X -= 1;     //여기 에서 넣어준 값이 GetPos에 반영이 되어야함.
+			Pos.X -= 1;     
 			if (_Screen.IsScreenOver(GetPos()) || _Block.IsBlockOver(GetPos()))
 			{
 				Pos.X += 1;
@@ -254,13 +253,10 @@ int main()
 {
 	ConsoleGameScreen NewScreen;
 	Player NewPlayer;
-	Block NewBlock0;             // 새로운 블럭개체를 선언하지 않고 블럭을여러개 만들 방법
+	Block NewBlock0;          // 새로운 블럭개체를 선언하지 않고 블럭을여러개 만들 방법
 	Block NewBlock1;
 	Block NewBlock2;
-	Block NewBomb;       // NewBomb이 배열안에 없으면 출력하지 않는다.
-	// IsScreenOver(GetPos()) 이 트루면 
-	// 배열안에 있으면 출력한다.   is
-	// int2 NewPos = int2{ 5, 5 };
+	Block NewBomb;       
 
 	int2 ScreenSize = NewScreen.GetScreenSize();
 
@@ -275,7 +271,7 @@ int main()
 
 		NewScreen.ScreenClear();  // 맵을 a으로 초기화.
 
-		NewScreen.SetScreenCharacter(NewPlayer.GetPos(), '*'); // 그후 플레이어 생성
+		NewScreen.SetScreenCharacter(NewPlayer.GetPos(), '*'); // 플레이어 생성
 		
 		NewScreen.SetScreenCharacter(NewBlock0.GetPos(), 'O');  // 장애물 생성
 
@@ -291,8 +287,6 @@ int main()
 		NewPlayer.Move(NewPlayer, NewScreen, NewBlock0);   // 위에서 받은 키를 통해 이동.
 
 		//NewPlayer.CreateBomb(NewBomb);
-
-		// 배열 바깥이면 true를 반환한다.
 
 		switch (NewPlayer.CH)
 		{
