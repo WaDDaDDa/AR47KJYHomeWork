@@ -5,6 +5,7 @@
 
 // 이게 0단계
 // 근본오브 근본 수학 물리 
+
 class int2
 {
 public:
@@ -170,6 +171,47 @@ private:
 	int2 Pos = int2(0, 0);
 };
 
+class Bomb
+{
+public:
+	Bomb()
+	{
+
+	}
+
+	static Bomb FirstBomb;
+
+	int2 GetPos() const
+	{
+		return Pos;
+	}
+
+	void SetPos(const int2& _Value)
+	{
+		Pos = _Value;
+	}
+
+	bool IsBlockOver(const int2& _Pos) const
+	{
+
+		if (Pos.X == _Pos.X && Pos.Y == _Pos.Y)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+protected:
+
+private:
+	static const int InterFrame = 200;
+
+	int2 Pos = int2(0, 0);
+};
+
+Bomb Bomb::FirstBomb;
+
 /////////////////////////////////////////////////////////////////// 엔진
 
 // 2단계 컨텐츠
@@ -253,18 +295,18 @@ public:
 		Sleep(InterFrame);
 	}
 
-	/*void CreateBomb(Block _Bomb)  // 폭탄 생성 함수로 만들려던거.
+	void CreateBomb(Bomb _Bomb)  // 폭탄 생성 함수로 만들려던거.
 	{
-	switch (CH)
-	{
-	case 'f':
-	case 'F':  //누를 때 마다 새로운 폭탄개체를 만들 방법
-		_Bomb.SetPos(GetPos());
-		break;
-	default:
-		break;
+		switch (CH)
+		{
+		case 'f':
+		case 'F':  //누를 때 마다 새로운 폭탄개체를 만들 방법
+			Bomb::FirstBomb.SetPos(GetPos());
+			break;
+		default:
+			break;
+		}
 	}
-	}*/
 
 protected:
 
@@ -281,7 +323,6 @@ int main()
 	Block NewBlock0;          // 새로운 블럭개체를 선언하지 않고 블럭을여러개 만들 방법
 	Block NewBlock1;
 	Block NewBlock2;
-	Block NewBomb;
 
 	int2 ScreenSize = ConsoleGameScreen::GetScreenSize();
 
@@ -300,7 +341,7 @@ int main()
 		
 		ConsoleGameScreen::GetMainScreen().SetScreenCharacter(NewBlock0.GetPos(), 'O');  // 장애물 생성
 
-		ConsoleGameScreen::GetMainScreen().SetScreenCharacter(NewBomb.GetPos(), '@');  // 초기 폭탄위치값을 어떻게 해야하나.
+		ConsoleGameScreen::GetMainScreen().SetScreenCharacter(Bomb::FirstBomb.GetPos(), '@');  // 초기 폭탄위치값을 어떻게 해야하나.
 		                                                      // 폭탄이 없는 상태를 표현할 방법.
 
 		ConsoleGameScreen::GetMainScreen().ScreenPrint();           // 화면 출력.
@@ -311,19 +352,9 @@ int main()
 
 		NewPlayer.Move(NewPlayer, ConsoleGameScreen::GetMainScreen(), NewBlock0);   // 위에서 받은 키를 통해 이동.
 
-		//NewPlayer.CreateBomb(NewBomb);
+		NewPlayer.CreateBomb(Bomb::FirstBomb);
 
-		switch (NewPlayer.CH)
-		{
-		case 'f':
-		case 'F':  //누를 때 마다 새로운 폭탄개체를 만들 방법
-			NewBomb.SetPos(NewPlayer.GetPos());
-			break;
-		default:
-			break;
 		}
 
 	}
 
-
-}
