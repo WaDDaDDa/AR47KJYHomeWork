@@ -12,12 +12,12 @@ public:
 	int Y = 0;
 
 public:
-	int2 Half()
+	int2 Half() const
 	{
 		return { X / 2, Y / 2 };
 	}
 
-	int2 Half3()
+	int2 Half3() const
 	{
 		return { X / 3, Y / 3 };
 	}
@@ -34,6 +34,23 @@ public:
 // 근본오브 근본 수학 물리 
 class ConsoleGameScreen
 {
+
+private:
+	ConsoleGameScreen()
+	{
+
+	}
+
+	static ConsoleGameScreen MainScreen;     // 클래스 내부에 본인의 클래스 선언 가능.
+	                                      // 본인의 클래스를 전역으로 선언함
+	//얻는 이점은 여러가지가 있는데 여기서 선언한 MainScreen을 여기저기 값을 넣어줄수있음.
+	
+public:
+	static ConsoleGameScreen& GetMainScreen()
+	{
+		return MainScreen;
+	}
+
 	// 메모리 영역 자체가 달라졌다고 봐야합니다.
 public:
 	// 클래스 내부에 전역변수를 선언할수가 있습니다.
@@ -68,7 +85,6 @@ public:
 		{
 			for (size_t x = 0; x < ScreenXSize; x++)
 			{
-				// Arr[y][x] = 'b';
 				printf_s("%c", Arr[y][x]);
 			}
 			printf_s("\n");
@@ -77,7 +93,7 @@ public:
 
 	// 이녀석을 무조건 사용해서 플레이어가 바깥으로 못나가게 만드세요.
 	// 배열 바깥이면 true를 반환한다.
-	bool IsScreenOver(const int2& _Pos)
+	bool IsScreenOver(const int2& _Pos) const
 	{
 		if (0 > _Pos.X)
 		{
@@ -102,7 +118,7 @@ public:
 		return false;
 	}
 
-	void SetScreenCharacter(const int2& _Pos, char _Ch)
+	void SetScreenCharacter(const int2& _Pos, const char _Ch)
 	{
 		if (true == IsScreenOver(_Pos))  //배열 바깥에는 반환하지 않는다.
 		{
@@ -117,6 +133,11 @@ private:
 
 };
 
+//ConsoleGameScreen내부에 선언된 MainScreen을 전역에 ConsoleGameScreen자료형으로 선언한것.
+ConsoleGameScreen ConsoleGameScreen::MainScreen; // 클래스 내부에 static으로 선언한 전역변수나 함수를 
+// 전역에 선언을 해주어야 다른 곳에서도 전역함수처럼 사용이 가능하고.
+// 전역에 따로 선언을 해주지 않으면 클래스 내부에서만 전역함수로 작용한다.
+
 class Block
 {
 public:
@@ -130,7 +151,7 @@ public:
 		Pos = _Value;
 	}
 
-	bool IsBlockOver(const int2& _Pos)
+	bool IsBlockOver(const int2& _Pos) const
 	{
 
 		if (Pos.X == _Pos.X && Pos.Y == _Pos.Y)
@@ -171,7 +192,7 @@ public:
 
 	// 화면바깥으로 못나가게 하세요. 
 
-	void InputKey(Player _Player)
+	void InputKey(const Player& _Player) 
 	{
 		if (0 == _kbhit())
 		{
@@ -184,40 +205,45 @@ public:
 		this->CH = _getch();
 	}
 
-	void Move(Player _Player, ConsoleGameScreen _Screen, Block _Block)
+	void Move(Player& _Player, ConsoleGameScreen& _Screen, Block& _Block)
 	{
+		int2 NextPos = { 0, 0 };
 		switch (_Player.CH)
 		{
 		case 'a':
 		case 'A':
-			Pos.X -= 1;     
-			if (_Screen.IsScreenOver(GetPos()) || _Block.IsBlockOver(GetPos()))
-			{
-				Pos.X += 1;
-			}
-			break;
-		case 'd':
-		case 'D':
-			Pos.X += 1;
-			if (_Screen.IsScreenOver(GetPos()) || _Block.IsBlockOver(GetPos()))
+			NextPos = Pos;
+			NextPos.X -= 1;
+			if (false == (_Screen.IsScreenOver(NextPos) || _Block.IsBlockOver(NextPos)))
 			{
 				Pos.X -= 1;
 			}
 			break;
+		case 'd':
+		case 'D':
+			NextPos = Pos;
+			NextPos.X += 1;
+			if (false == (_Screen.IsScreenOver(NextPos) || _Block.IsBlockOver(NextPos)))
+			{
+				Pos.X += 1;
+			}
+			break;
 		case 'w':
 		case 'W':
-			Pos.Y -= 1;
-			if (_Screen.IsScreenOver(GetPos()) || _Block.IsBlockOver(GetPos()))
+			NextPos = Pos;
+			NextPos.Y -= 1;
+			if (false == (_Screen.IsScreenOver(NextPos) || _Block.IsBlockOver(NextPos)))
 			{
-				Pos.Y += 1;
+				Pos.Y -= 1;
 			}
 			break;
 		case 's':
 		case 'S':
-			Pos.Y += 1;
-			if (_Screen.IsScreenOver(GetPos()) || _Block.IsBlockOver(GetPos()))
+			NextPos = Pos;
+			NextPos.Y += 1;
+			if (false == (_Screen.IsScreenOver(NextPos) || _Block.IsBlockOver(NextPos)))
 			{
-				Pos.Y -= 1;
+				Pos.Y += 1;
 			}
 			break;
 		default:
@@ -251,14 +277,13 @@ private:
 
 int main()
 {
-	ConsoleGameScreen NewScreen;
 	Player NewPlayer;
 	Block NewBlock0;          // 새로운 블럭개체를 선언하지 않고 블럭을여러개 만들 방법
 	Block NewBlock1;
 	Block NewBlock2;
-	Block NewBomb;       
+	Block NewBomb;
 
-	int2 ScreenSize = NewScreen.GetScreenSize();
+	int2 ScreenSize = ConsoleGameScreen::GetScreenSize();
 
 	NewPlayer.SetPos(ScreenSize.Half());
 	NewBlock0.SetPos(ScreenSize.Half3());
@@ -269,22 +294,22 @@ int main()
 	{
 		system("cls");
 
-		NewScreen.ScreenClear();  // 맵을 a으로 초기화.
+		ConsoleGameScreen::GetMainScreen().ScreenClear();  // 맵을 a으로 초기화.
 
-		NewScreen.SetScreenCharacter(NewPlayer.GetPos(), '*'); // 플레이어 생성
+		ConsoleGameScreen::GetMainScreen().SetScreenCharacter(NewPlayer.GetPos(), '*'); // 플레이어 생성
 		
-		NewScreen.SetScreenCharacter(NewBlock0.GetPos(), 'O');  // 장애물 생성
+		ConsoleGameScreen::GetMainScreen().SetScreenCharacter(NewBlock0.GetPos(), 'O');  // 장애물 생성
 
-		NewScreen.SetScreenCharacter(NewBomb.GetPos(), '@');  // 초기 폭탄위치값을 어떻게 해야하나.
+		ConsoleGameScreen::GetMainScreen().SetScreenCharacter(NewBomb.GetPos(), '@');  // 초기 폭탄위치값을 어떻게 해야하나.
 		                                                      // 폭탄이 없는 상태를 표현할 방법.
 
-		NewScreen.ScreenPrint();           // 화면 출력.
+		ConsoleGameScreen::GetMainScreen().ScreenPrint();           // 화면 출력.
 		 
 		NewPlayer.CH = 0; // 받은 키 초기화. 받은키가 계속 남아있어서 그 키가 반복되는 현상이 생김
 
 		NewPlayer.InputKey(NewPlayer);  // 기다리고 키를 받는것.
 
-		NewPlayer.Move(NewPlayer, NewScreen, NewBlock0);   // 위에서 받은 키를 통해 이동.
+		NewPlayer.Move(NewPlayer, ConsoleGameScreen::GetMainScreen(), NewBlock0);   // 위에서 받은 키를 통해 이동.
 
 		//NewPlayer.CreateBomb(NewBomb);
 

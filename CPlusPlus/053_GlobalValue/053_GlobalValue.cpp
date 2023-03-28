@@ -24,6 +24,7 @@ public:
     // 클래스에 속한 전역 함수가 된다.
     // 스태틱 맴버함수가 존재하고
     // static이 붙으면 클래스에 속한 전역 함수가 된다는 뜻.
+
     static int GetAllMonsterCount()
     {
         return MonsterCount;
@@ -48,13 +49,15 @@ private:
     // 접근제한 지정자 private 몬스터만 사용할수 있는 전역변수가 됐다.
 
     // const를 붙이고 초기화까지 해주는 순간 이녀석은 완전한 변하지 않는 수가 된다.
-    static int MonsterCount = 0;
+    static int MonsterCount;
 
     int Arr[3][3];
 };
 
 // 실체를 둔다.
-// const int Monster::MonsterCount = 0;
+int Monster::MonsterCount = 0;
+
+
 
 class Player
 {
@@ -71,7 +74,6 @@ int main()
 {
     // 몬스터가 관리하는 전역변수다.
     // 몬스터라는 속성에 속한 전역변수
-    // Monster::MonsterCount = 3000;
 
     // 예를 들어 몬스터 객체를 생성할때마다 MonsterCount가 증가해야 한다면.
     // static을 통해 클래스 내부의 전역변수로 지정하지 않고 int MonsterCount = 0으로 선언한다면
@@ -82,6 +84,8 @@ int main()
     Monster NewMonster3;
 
     int Count = Monster::GetAllMonsterCount();
+
+    Monster::GetAllMonsterCount();
 
     // 사용하는데 일반맴버함수는 결국에는 객체가 필요하다. 
     // int Count = NewMonster3.GetAllMonsterCount();

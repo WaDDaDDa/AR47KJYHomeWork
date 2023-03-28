@@ -16,6 +16,9 @@ public:
 
     // 이함수를 호출한다고 해도
     // 이 클래스를 통해서 만들어진 객체는 변화하지 않을거야.
+
+    // Player* const this 가 생략되어 있는걸   const를 붙이면.
+    // const Player* const this 가 되는것 
     void PrintStatus(/*const Player* const this*/) const
     {
         // this;
