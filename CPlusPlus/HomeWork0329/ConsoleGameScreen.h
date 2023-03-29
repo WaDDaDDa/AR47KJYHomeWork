@@ -6,7 +6,7 @@ class ConsoleGameScreen
 
 private:
 	ConsoleGameScreen();
-
+public:
 	static ConsoleGameScreen MainScreen;     // 클래스 내부에 본인의 클래스 선언 가능.
 	// 본인의 클래스를 전역으로 선언함
 	//얻는 이점은 여러가지가 있는데 여기서 선언한 MainScreen을 여기저기 값을 넣어줄수있음.
@@ -17,8 +17,8 @@ public:
 
 	// 클래스 내부에 전역변수를 선언할수가 있습니다.
 	// Map 크기/
-	static const int ScreenYSize = 20;
-	static const int ScreenXSize = 10;
+	static const unsigned int ScreenYSize = 20;
+	static const unsigned int ScreenXSize = 10;
 
 	static Position GetScreenSize();
 

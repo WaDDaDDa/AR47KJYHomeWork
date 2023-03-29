@@ -82,28 +82,3 @@ void Player::Move(ConsoleGameScreen& _Screen, Block& _Block)
 	Sleep(InterFrame);
 }
 
-void Player::CreateBomb(Bomb& _Bomb)  // 폭탄 생성 함수로 만들려던거.
-{
-	switch (CH)
-	{
-	case 'k':
-	case 'K':  //누를 때 마다 새로운 폭탄개체를 만들 방법
-		Bomb::FirstBomb.SetPos(GetPos());
-		break;
-	default:
-		break;
-	}
-}
-
-bool Player::Fire()  // 폭탄 생성 함수로 만들려던거.
-{
-	if (CH == 'f' || CH == 'F')
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-
-}

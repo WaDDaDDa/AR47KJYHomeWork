@@ -39,14 +39,14 @@
     <ClCompile Include="Block.cpp">
       <Filter>Level1</Filter>
     </ClCompile>
-    <ClCompile Include="Bomb.cpp">
-      <Filter>Level1</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Level2</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Level3</Filter>
+    </ClCompile>
+    <ClCompile Include="Bomb.cpp">
+      <Filter>Level3</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -59,14 +59,14 @@
     <ClInclude Include="Block.h">
       <Filter>Level1</Filter>
     </ClInclude>
-    <ClInclude Include="Bomb.h">
-      <Filter>Level1</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Level2</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Level3</Filter>
+    </ClInclude>
+    <ClInclude Include="Bomb.h">
+      <Filter>Level3</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

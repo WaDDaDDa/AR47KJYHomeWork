@@ -1,4 +1,5 @@
 #pragma once
+
 class Position
 {
 public:
@@ -21,5 +22,12 @@ public:
 	{
 
 	}
+
+	inline Position(int* Value) 
+	{
+		X = -1;
+		Y = -1;
+	}
+
 };
 

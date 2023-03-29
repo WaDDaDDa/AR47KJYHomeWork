@@ -12,10 +12,12 @@ public:
 
 	void SetPos(const Position& _Value);
 
+	void CreateBomb();
+
 protected:
 
 private:
 	static const int InterFrame = 200;
 
-	Position Pos = Position(0, 0);
+	Position Pos = Position::Position(nullptr);
 };

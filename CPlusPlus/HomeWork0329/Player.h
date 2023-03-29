@@ -17,10 +17,6 @@ public:
 
 	void Move(ConsoleGameScreen& _Screen, Block& _Block);
 
-	void CreateBomb(Bomb& _Bomb);
-
-	bool Fire();
-
 	static Player MainPlayer;
 
 protected:

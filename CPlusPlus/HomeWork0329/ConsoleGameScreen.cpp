@@ -30,7 +30,7 @@ void ConsoleGameScreen::ScreenClear()
 			{
 				continue;
 			}*/
-			Arr[y][x] = 'a';
+			Arr[y][x] = ' ';
 		}
 	}
 }
