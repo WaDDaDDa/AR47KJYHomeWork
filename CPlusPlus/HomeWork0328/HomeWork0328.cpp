@@ -40,8 +40,8 @@ public:
 	
 	// 클래스 내부에 전역변수를 선언할수가 있습니다.
 	// Map 크기/
-	static const int ScreenYSize = 4;
-	static const int ScreenXSize = 4;
+	static const int ScreenYSize = 20;
+	static const int ScreenXSize = 10;
 
 	static int2 GetScreenSize();
 
@@ -119,7 +119,7 @@ public:
 
 	void Move(Player& _Player, ConsoleGameScreen& _Screen, Block& _Block);
 
-	void CreateBomb(Bomb _Bomb);
+	void CreateBomb(Bomb& _Bomb);
 
 protected:
 
@@ -134,7 +134,7 @@ private:
 // 전역에 선언을 해주어야 다른 곳에서도 전역함수처럼 사용이 가능하고.
 // 전역에 따로 선언을 해주지 않으면 클래스 내부에서만 전역함수로 작용한다.
 ConsoleGameScreen ConsoleGameScreen::MainScreen;
-char ConsoleGameScreen::Arr[ConsoleGameScreen::ScreenXSize][ConsoleGameScreen::ScreenYSize] = { 0, };
+char ConsoleGameScreen::Arr[ConsoleGameScreen::ScreenYSize][ConsoleGameScreen::ScreenXSize] = { 0, };
 Bomb Bomb::FirstBomb;
 
 int main()
@@ -393,7 +393,7 @@ void Player::Move(Player& _Player, ConsoleGameScreen& _Screen, Block& _Block)
 	Sleep(InterFrame);
 }
 
-void Player::CreateBomb(Bomb _Bomb)  // 폭탄 생성 함수로 만들려던거.
+void Player::CreateBomb(Bomb& _Bomb)  // 폭탄 생성 함수로 만들려던거.
 {
 	switch (CH)
 	{
