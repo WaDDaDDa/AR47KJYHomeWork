@@ -16,6 +16,8 @@ public:
 
 	void BulletMove();
 
+	void Render();
+
 protected:
 
 private:

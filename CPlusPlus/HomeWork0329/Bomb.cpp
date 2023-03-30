@@ -28,3 +28,9 @@ void Bomb::CreateBomb()
 	else
 		return;
 }
+
+
+void Bomb::Render()
+{
+	ConsoleGameScreen::GetMainScreen().SetScreenCharacter(Bomb::FirstBomb.GetPos(), '@');
+}

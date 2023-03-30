@@ -10,7 +10,7 @@ public:
 	static const int ScreenYSize = 10;
 	static const int ScreenXSize = 20;
 
-	static ConsoleGameScreen& GetMainScreen()
+	inline static ConsoleGameScreen& GetMainScreen()
 	{
 		return MainScreen;
 	}

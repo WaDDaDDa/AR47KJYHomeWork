@@ -64,9 +64,9 @@ void Player::Input()
 		break;
 	case 'f':
 	case 'F':
-		BulletPtr[Bullet::FireCount].SetPos(Pos);
-		BulletPtr[Bullet::FireCount].FireOn();
-		Bullet::FireCount++;
+		BulletPtr[Bullet::FireCount].SetPos(Pos);  // 총알의 위치를 Player의 위치로 SetPos한다.
+		BulletPtr[Bullet::FireCount].FireOn();    // 총알을 Fire 상태로 만든다.
+		Bullet::FireCount++;                      // 총알 발사 갯수 증가.
 		break;
 	default:
 		break;

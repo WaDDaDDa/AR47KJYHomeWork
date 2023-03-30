@@ -1,4 +1,5 @@
 #include "Block.h"
+#include "ConsoleGameScreen.h"
 
 Block::Block()
 {
@@ -23,4 +24,10 @@ bool Block::IsBlockOver(const Position& _Pos) const
 	}
 
 	return false;
+}
+
+void Block::Render()
+{
+
+	ConsoleGameScreen::GetMainScreen().SetScreenCharacter(GetPos(), 'O');  // 장애물 생성
 }

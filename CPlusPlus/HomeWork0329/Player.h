@@ -9,6 +9,8 @@ public:
 
 	char CH = 0;
 
+	static Player MainPlayer;
+
 	Position GetPos() const;
 
 	void SetPos(const Position& _Value);
@@ -17,7 +19,7 @@ public:
 
 	void Move(ConsoleGameScreen& _Screen, Block& _Block);
 
-	static Player MainPlayer;
+	void Render();
 
 protected:
 

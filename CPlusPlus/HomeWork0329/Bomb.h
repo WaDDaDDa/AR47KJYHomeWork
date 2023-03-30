@@ -14,6 +14,8 @@ public:
 
 	void CreateBomb();
 
+	void Render();
+
 protected:
 
 private:

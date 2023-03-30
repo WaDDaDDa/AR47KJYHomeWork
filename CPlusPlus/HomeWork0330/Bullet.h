@@ -7,12 +7,15 @@ class ConsoleGameScreen;
 class Bullet
 {
 public:
-	static const int ArrBulletCount = 10;
+	static const int ArrBulletCount = 10;  // 총알의 갯수를 전역으로 선언.
+	
+	static int FireCount;             // 총알이 발사된 횟수를 전역으로 선언. 
+	// 누군가가 접근해서 바꾸면 안된다. private로 설정하고 값을 불러오는 함수를 따로 만들자.
+	// get set을 만들고 set에 0을넣어 초기화를 해주려고 하는데 안된다.
 
-	static int FireCount;
 
-	static Bullet* GetArrBullet() 
-	{
+	static Bullet* GetArrBullet()    // private 인 ArrBullet를 리턴하는 함수.
+	{                              // Bullet*인유는 주소값을 반환하기 위해서.
 		return ArrBullet;
 	}
 
@@ -53,4 +56,3 @@ private:
 
 	int2 Pos = int2(0, 0);
 };
-

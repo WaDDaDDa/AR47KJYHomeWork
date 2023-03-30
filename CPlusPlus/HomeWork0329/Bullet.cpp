@@ -42,3 +42,8 @@ void Bullet::BulletMove()
 	Bullet::FirstBullet.SetPos(New);
 
 }
+
+void Bullet::Render()
+{
+	ConsoleGameScreen::GetMainScreen().SetScreenCharacter(GetPos(), '^');
+}

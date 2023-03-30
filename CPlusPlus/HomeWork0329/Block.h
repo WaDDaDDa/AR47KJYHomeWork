@@ -13,6 +13,8 @@ public:
 
 	bool IsBlockOver(const Position& _Pos) const;
 
+	void Render();
+
 protected:
 
 private:

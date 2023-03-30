@@ -29,9 +29,9 @@ int main()
 
 		ConsoleGameScreen::GetMainScreen().ScreenClear();  // 맵을 a으로 초기화.
 
-		ConsoleGameScreen::GetMainScreen().SetScreenCharacter(Player::MainPlayer.GetPos(), '*'); // 플레이어 생성
+		Player::MainPlayer.Render();
 
-		ConsoleGameScreen::GetMainScreen().SetScreenCharacter(NewBlock0.GetPos(), 'O');  // 장애물 생성
+		NewBlock0.Render();
 
 		// 만약 키가 눌렸던 상태가 아니라면 출력하지않는다.
 		// Player::MainPlayer.CH 가 0 이라면 출력하지 않는다. 라고한다면.
@@ -40,9 +40,9 @@ int main()
 		// 폭탄을 설치하고 이동을 하게되면 사라질 것이다.
 		// 어떻게할까?
 		// 일단 배열 바깥인 -1,-1에 생성되게 만들었음.
-		ConsoleGameScreen::GetMainScreen().SetScreenCharacter(Bomb::FirstBomb.GetPos(), '@');  // 초기 폭탄위치값을 어떻게 해야하나.
+		Bomb::FirstBomb.Render();
 		// 폭탄이 없는 상태를 표현할 방법.
-		ConsoleGameScreen::GetMainScreen().SetScreenCharacter(Bullet::FirstBullet.GetPos(), '^');
+		Bullet::FirstBullet.Render();
 
 		ConsoleGameScreen::GetMainScreen().ScreenPrint();           // 화면 출력.
 

@@ -82,3 +82,8 @@ void Player::Move(ConsoleGameScreen& _Screen, Block& _Block)
 	Sleep(InterFrame);
 }
 
+void Player::Render()
+{
+	ConsoleGameScreen::GetMainScreen().SetScreenCharacter(Player::MainPlayer.GetPos(), '*'); // 플레이어 생성
+}
+
