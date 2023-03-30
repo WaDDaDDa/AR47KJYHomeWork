@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{01446b25-90e1-4c8d-986f-c5dea3922aa7}</ProjectGuid>
-    <RootNamespace>HomeWork0330plus</RootNamespace>
+    <ProjectGuid>{e51086e4-719a-4f62-b2c8-1abc7a7ad601}</ProjectGuid>
+    <RootNamespace>HomeWork0330Plus</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -127,7 +127,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="HomeWork0330_plus.cpp" />
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="ConsoleGameMath.cpp" />
+    <ClCompile Include="ConsoleGameScreen.cpp" />
+    <ClCompile Include="HomeWork0330_Plus.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="ShootingGame.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="ConsoleGameMath.h" />
+    <ClInclude Include="ConsoleGameScreen.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="ShootingGame.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
