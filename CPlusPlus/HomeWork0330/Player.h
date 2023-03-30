@@ -36,6 +36,8 @@ private:
 
 	Bullet* BulletPtr;
 
+	static int BulletCount;
+
 	// 이런 구조를 Has a라고 한다. Player Has a Bullet
 	// Bullet NewBullet; // 플레이어의 신체 내부에 총알 한발이 있다.
 	// Bullet* NewBullet; // 바깥에 있는 총알을 조작할수 있다.

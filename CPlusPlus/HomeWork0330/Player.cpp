@@ -4,6 +4,8 @@
 #include <Windows.h>
 #include "Bullet.h"
 
+int Player::BulletCount = 0;
+
 Player::Player()
 {
 
@@ -64,10 +66,10 @@ void Player::Input()
 		break;
 	case 'f':
 	case 'F':
-		BulletPtr[Bullet::FireCount].SetPos(Pos);  // 총알의 위치를 Player의 위치로 SetPos한다.
-		BulletPtr[Bullet::FireCount].FireOn();    // 총알을 Fire 상태로 만든다.
-		Bullet::FireCount++;                      // 총알 발사 갯수 증가.
-		break;
+		BulletPtr[Player::BulletCount].SetPos(Pos);  // 총알의 위치를 Player의 위치로 SetPos한다.
+		BulletPtr[Player::BulletCount].FireOn();    // 총알을 Fire 상태로 만든다.
+		Player::BulletCount++;  // 총알 발사 갯수 증가. Player가 가질수도있고 Bullet이 가질수도있다.
+		break;                  // 누가 가지는게 좋을까.
 	default:
 		break;
 	}

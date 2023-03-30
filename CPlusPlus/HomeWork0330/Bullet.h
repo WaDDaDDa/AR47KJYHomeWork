@@ -9,7 +9,7 @@ class Bullet
 public:
 	static const int ArrBulletCount = 10;  // 총알의 갯수를 전역으로 선언.
 	
-	static int FireCount;             // 총알이 발사된 횟수를 전역으로 선언. 
+	// static int FireCount;             // 총알이 발사된 횟수를 전역으로 선언. 
 	// 누군가가 접근해서 바꾸면 안된다. private로 설정하고 값을 불러오는 함수를 따로 만들자.
 	// get set을 만들고 set에 0을넣어 초기화를 해주려고 하는데 안된다.
 

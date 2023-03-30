@@ -8,7 +8,7 @@ Bullet Bullet::ArrBullet[Bullet::ArrBulletCount]; // ÃÑ¾Ë°¹¼ö¸¸Å­ ÃÑ¾Ë À» »ý¼ºÀ»
 
 // Bullet ArrBullet[10] = { Bullet (), Bullet (), Bullet (), Bullet (), Bullet (), Bullet (),};
 
-int Bullet::FireCount = 0 ;    // ÃÑ¾Ë ¹ß»ç °¹¼ö.
+// int Bullet::FireCount = 0 ;    // ÃÑ¾Ë ¹ß»ç °¹¼ö.
 
 void Bullet::AllRender()      // ÃÑ¾Ë°¹¼ö¸¸Å­À» Ã¼Å©ÇÏ¿© ·£´õ ½ÃÅ°´Â ÇÔ¼ö.
 {
