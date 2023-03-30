@@ -15,7 +15,7 @@ public:
 
 
 	static Bullet* GetArrBullet()    // private 인 ArrBullet를 리턴하는 함수.
-	{                              // Bullet*인유는 주소값을 반환하기 위해서.
+	{                              // Bullet*인 이유는 주소값을 반환하기 위해서.
 		return ArrBullet;
 	}
 

@@ -53,7 +53,7 @@ void Bullet::Render()    // 총알에 지정한 문자를 넣어주는 함수.  콘솔게임 헤더가
 
 void Bullet::Update()   // 총알의 움직임을 업데이트하는 함수. y값이 감소하는, 위로 올라가는 움직임처럼 보여짐.
 {
-	if (true == Fire)
+	if (true == Fire)    //총알 클래스가 가진 Fire가 트루라면 실행됨.
 	{
 		--Pos.Y;
 	}
