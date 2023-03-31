@@ -43,6 +43,8 @@ public:
 
 	static void Loading();
 
+	static int ChangeDir();
+
 protected:
 
 private:
@@ -51,6 +53,8 @@ private:
 	static Monster ArrMonster[Monster::MonsterCount];
 
 	int2 Pos = int2(0, 0);
+
+	static int Dir;
 
 	// 이런 구조를 Has a라고 한다. Player Has a Bullet
 	// Bullet NewBullet; // 플레이어의 신체 내부에 총알 한발이 있다.

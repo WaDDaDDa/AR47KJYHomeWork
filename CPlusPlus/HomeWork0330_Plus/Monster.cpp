@@ -3,6 +3,7 @@
 
 
 Monster Monster::ArrMonster[Monster::MonsterCount];
+int Monster::Dir = 1;
 
 Monster::Monster()
 {
@@ -36,7 +37,7 @@ void Monster::Update()
 {
 	if (true == Monster::On())
 	{
-		--Pos.Y;
+		Pos.X += Dir;
 	}
 }
 
@@ -60,3 +61,20 @@ void Monster::Loading()
 		Monster::ArrMonster[i].SetPos({ i + 3, 1 });
 	}
 }
+
+int Monster::ChangeDir()
+{
+	if (Dir == 1)
+	{
+		Dir = -1;
+		return Dir;
+	}
+	if (Dir == -1)
+	{
+		Dir = 1;
+		return Dir;
+	}
+}
+
+// 만약 Dir이 1이라면 오른쪽으로
+// Dir이 -1 이라면 왼쪽

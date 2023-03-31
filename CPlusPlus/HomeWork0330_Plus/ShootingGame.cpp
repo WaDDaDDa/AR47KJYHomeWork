@@ -38,11 +38,14 @@ void ShootingGame::GameProgress()
 		Bullet::AllRender();
 		Monster::AllRender();
 
-
 		ConsoleGameScreen::GetMainScreen().ScreenPrint();
 
 		NewPlayer.Input();
 		Bullet::AllUpdate();
+
+		Monster::ChangeDir();
+
+		Monster::AllUpdate();
 
 	}
 }
