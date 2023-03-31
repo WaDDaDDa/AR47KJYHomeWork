@@ -9,7 +9,7 @@ void ConsoleGameScreen::ScreenClear()
 	{
 		for (size_t x = 0; x < ScreenXSize; x++)
 		{
-			Arr[y][x] = 'a';
+			Arr[y][x] = ' ';
 		}
 	}
 }

@@ -34,6 +34,9 @@
     <ClCompile Include="ShootingGame.cpp">
       <Filter>Level2</Filter>
     </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleGameMath.h">
@@ -50,6 +53,9 @@
     </ClInclude>
     <ClInclude Include="ShootingGame.h">
       <Filter>Level2</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

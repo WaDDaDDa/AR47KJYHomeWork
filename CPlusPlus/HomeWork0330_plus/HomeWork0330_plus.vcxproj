@@ -131,6 +131,7 @@
     <ClCompile Include="ConsoleGameMath.cpp" />
     <ClCompile Include="ConsoleGameScreen.cpp" />
     <ClCompile Include="HomeWork0330_Plus.cpp" />
+    <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ShootingGame.cpp" />
   </ItemGroup>
@@ -138,6 +139,7 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="ConsoleGameMath.h" />
     <ClInclude Include="ConsoleGameScreen.h" />
+    <ClInclude Include="Monster.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ShootingGame.h" />
   </ItemGroup>

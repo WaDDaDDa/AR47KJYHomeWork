@@ -70,6 +70,10 @@ void Player::Input()
 		BulletPtr[Player::BulletCount].FireOn();    // 총알을 Fire 상태로 만든다.
 		Player::BulletCount++;  // 총알 발사 갯수 증가. Player가 가질수도있고 Bullet이 가질수도있다.
 		break;                  // 누가 가지는게 좋을까.
+	case 'r':
+	case 'R':
+		Player::BulletCount = 0;
+		break;
 	default:
 		break;
 	}

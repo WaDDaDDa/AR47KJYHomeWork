@@ -62,12 +62,3 @@ void Bullet::Update()
 		--Pos.Y;
 	}
 }
-
-//
-//void Bullet::Update()
-//{
-//	if (true == Fire)
-//	{
-//		--Pos.Y;
-//	}
-//}

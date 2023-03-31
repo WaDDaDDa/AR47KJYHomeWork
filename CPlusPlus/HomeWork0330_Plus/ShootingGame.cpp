@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "ConsoleGameScreen.h"
+#include "Monster.h"
 
 void ShootingGame::GameProgress()
 {
@@ -24,6 +25,8 @@ void ShootingGame::GameProgress()
 	int2 ScreenSize = ConsoleGameScreen::GetMainScreen().GetScreenSize();
 	NewPlayer.SetPos(ScreenSize.Half());
 
+	Monster::Loading();
+
 	while (true)
 	{
 		system("cls");
@@ -33,6 +36,7 @@ void ShootingGame::GameProgress()
 		// 캐릭터 위치에 글자를 하나 띄운다.
 		NewPlayer.Render();
 		Bullet::AllRender();
+		Monster::AllRender();
 
 
 		ConsoleGameScreen::GetMainScreen().ScreenPrint();
