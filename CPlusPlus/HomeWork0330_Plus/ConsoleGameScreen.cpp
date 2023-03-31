@@ -28,7 +28,7 @@ void ConsoleGameScreen::ScreenPrint() const
 }
 
 // 이녀석을 무조건 사용해서 플레이어가 바깥으로 못나가게 만드세요.
-bool ConsoleGameScreen::IsScreenOver(const int2& _Pos) const
+bool ConsoleGameScreen::IsScreenOver(const int2& _Pos)
 {
 	if (0 > _Pos.X)
 	{

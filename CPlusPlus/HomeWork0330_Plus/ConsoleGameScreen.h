@@ -21,7 +21,7 @@ public:
 
 	void ScreenPrint() const;
 
-	bool IsScreenOver(const int2& _Pos) const;
+	static bool IsScreenOver(const int2& _Pos);
 
 	void SetScreenCharacter(const int2& _Pos, char _Ch);
 

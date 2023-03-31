@@ -26,7 +26,7 @@ public:
 
 	static void AllUpdate();
 
-	static const int MonsterCount = 14;
+	static const int MonsterCount = 4;
 
 	inline bool On()
 	{

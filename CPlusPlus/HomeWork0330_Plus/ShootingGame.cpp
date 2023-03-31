@@ -43,8 +43,6 @@ void ShootingGame::GameProgress()
 		NewPlayer.Input();
 		Bullet::AllUpdate();
 
-		Monster::ChangeDir();
-
 		Monster::AllUpdate();
 
 	}
