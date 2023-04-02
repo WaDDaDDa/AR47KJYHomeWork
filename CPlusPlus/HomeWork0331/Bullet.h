@@ -9,7 +9,7 @@ class Bullet : public ConsoleGameObject
 public:
 	static const int ArrBulletCount = 10;
 
-	static Bullet* GetArrBullet() 
+	inline static Bullet* GetArrBullet() 
 	{
 		return ArrBullet;
 	}

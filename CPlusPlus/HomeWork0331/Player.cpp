@@ -9,7 +9,7 @@ Player::Player()
 	RenderChar = '*';
 }
 // 화면바깥으로 못나가게 하세요. 
-void Player::Input()
+void Player::Input() const
 {
 	if (0 == _kbhit())
 	{
@@ -77,7 +77,8 @@ void Player::Input()
 
 void Player::ShotUpdate()
 {
-	Bullet& NewBullet = BulletPtr[BulletCount];
+	Bullet& NewBullet = BulletPtr[BulletCount]; // 값을 보면서 진행하기 위한 NewBullet을 선언
+	// 레퍼런스 선언이기에 NewBullet == BulletPtr 이다.
 	NewBullet.SetPos(Pos);
 	NewBullet.On();
 

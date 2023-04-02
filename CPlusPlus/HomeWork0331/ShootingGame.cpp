@@ -8,9 +8,7 @@
 #include "Monster.h"
 #include "ConsoleGameScreen.h"
 
-Player ShootingGame::NewPlayer;
-
-Monster ShootingGame::ArrMonster[ArrMonsterCount];
+Player ShootingGame::MainPlayer;
 
 void ShootingGame::Loading() //게임시작 전에 준비 되어야 할 요소들.
 {
@@ -18,26 +16,24 @@ void ShootingGame::Loading() //게임시작 전에 준비 되어야 할 요소들.
 	Bullet::AllOff();
 
 	// 플레이어가 총알의 포인터를 알게 한다.
-	NewPlayer.SetBulletArr(Bullet::GetArrBullet());
+	MainPlayer.SetBulletArr(Bullet::GetArrBullet());
 
 	// 플레이어를 화면의 중앙에 위치시킨다.
 	int2 ScreenSize = ConsoleGameScreen::GetMainScreen().GetScreenSize();
-	NewPlayer.SetPos(ScreenSize.Half());
+	MainPlayer.SetPos(ScreenSize.Half());
 
 	// 몬스터의 초기 위치를 설정한다.
-	for (int i = 0; i < ArrMonsterCount; i++)
-	{
-		ArrMonster[i].SetPos({ i + 3, 1 });
-	}
+	Monster::Loading();
 
 }
 
 void ShootingGame::Collision() // 총알과 몬스터 충돌했을 경우
 {
 
-	Bullet* BulletArr = Bullet::GetArrBullet();
-
-	// 모든 총알과
+	Bullet* BulletArr = Bullet::GetArrBullet(); //총알의배열주소를 받을수있는 BulletArr 선언
+	Monster* MonsterArr = Monster::GetArrMonster();//몬스터의배열주소를 받을수있는 MonsterArr 선언
+	
+	// 모든 총알과 
 	for (size_t BulletIndex = 0; BulletIndex < Bullet::ArrBulletCount; BulletIndex++)
 	{
 		// 참조로 묶었다. CurBullet은 BulletArr인것.
@@ -48,9 +44,9 @@ void ShootingGame::Collision() // 총알과 몬스터 충돌했을 경우
 			continue;
 		}
 		// 모든 몬스터는
-		for (size_t MonsterIndex = 0; MonsterIndex < ShootingGame::ArrMonsterCount; MonsterIndex++)
+		for (size_t MonsterIndex = 0; MonsterIndex < Monster::ArrMonsterCount; MonsterIndex++)
 		{
-			Monster& CurMonster = ArrMonster[MonsterIndex];
+			Monster& CurMonster = MonsterArr[MonsterIndex];
 
 			if (false == CurMonster.IsUpdate()) //업데이트 밸류가 fasle면 건너뛴다.
 			{
@@ -67,35 +63,6 @@ void ShootingGame::Collision() // 총알과 몬스터 충돌했을 경우
 
 }
 
-void ShootingGame::MonsterEndCheck()
-{
-	for (size_t i = 0; i < ArrMonsterCount; i++)
-	{
-
-		//if (ConsoleGameScreen::IsScreenOver(ArrMonster[i].GetPos()) == ArrMonster[i].IsUpdate())
-		//{               공격받으면 살아남은 몬스터가 그대로 아래로 날라옴
-		//	Monster::ChangeDir();
-
-		//	for (size_t i = 0; i < ArrMonsterCount; i++)
-		//	{
-		//		ArrMonster[i].YUpdate();
-		//		ArrMonster[i].Update();
-		//	}
-		//}
-
-		if (true == ConsoleGameScreen::IsScreenOver(ArrMonster[i].GetPos()))
-		{
-			Monster::ChangeDir();
-
-			for (size_t i = 0; i < ArrMonsterCount; i++)
-			{
-				ArrMonster[i].YUpdate();
-				ArrMonster[i].Update();
-			}
-		}
-	}
-}
-
 void ShootingGame::GameUpdate() 
 {
 	while (true)
@@ -105,28 +72,21 @@ void ShootingGame::GameUpdate()
 		ConsoleGameScreen::GetMainScreen().ScreenClear();
 
 		// 캐릭터 위치에 글자를 하나 띄운다.
-		NewPlayer.Render();
+		MainPlayer.Render();
 		Bullet::AllRender();
-		for (size_t i = 0; i < ArrMonsterCount; i++)
-		{
-			ArrMonster[i].Render();
-		}
-
-		Collision();
+		Monster::AllRender();
 
 		ConsoleGameScreen::GetMainScreen().ScreenPrint();
 
-		NewPlayer.Input();
+		MainPlayer.Input();
 
 		Bullet::AllUpdate();
 
-		for (size_t i = 0; i < ArrMonsterCount; i++)
-		{
-			ArrMonster[i].Update();
-		}
+		Monster::AllUpdate();
+		
+		Monster::MonsterEndCheck();
 
-		MonsterEndCheck();
-
+		Collision();
 	}
 }
 

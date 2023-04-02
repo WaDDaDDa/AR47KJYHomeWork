@@ -18,11 +18,6 @@ private:
 
 	static Player NewPlayer;
 
-	static const int ArrMonsterCount = 4;
-
-
-	static Monster ArrMonster[ArrMonsterCount];
-
 	ShootingGame() 
 	{
 	}
