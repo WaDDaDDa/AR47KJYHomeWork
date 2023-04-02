@@ -52,14 +52,6 @@ void Monster::AllUpdate()
 		// IsScreenOver가 트루면 화면 밖이다.
 		// False면 화면 안이다.
 		// 화면밖이 되기전에 방향이 전환 되어야 한다.
-		if (true == ConsoleGameScreen::IsScreenOver(ArrMonster[i].GetPos()))
-		{
-			ChangeDir();
-		}
-		ArrMonster[0].Dir;
-		ArrMonster[1].Dir;
-		ArrMonster[2].Dir;
-		ArrMonster[3].Dir;
 		ArrMonster[i].Update();
 	}
 }

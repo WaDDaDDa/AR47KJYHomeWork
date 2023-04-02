@@ -44,6 +44,23 @@ void ShootingGame::GameProgress()
 		Bullet::AllUpdate();
 
 		Monster::AllUpdate();
+		ConsoleGameScreen::IsScreenOver(Monster::GetPos())
+		if (ConsoleGame::IsScreenOver())
+		{
+			int Monster::ChangeDir()
+			{
+				if (Dir == 1)
+				{
+					Dir = -1;
+					return Dir;
+				}
+				if (Dir == -1)
+				{
+					Dir = 1;
+					return Dir;
+				}
+			}
+		}
 
 	}
 }
