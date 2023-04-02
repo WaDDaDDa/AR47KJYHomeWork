@@ -9,14 +9,11 @@ Player::Player()
 	RenderChar = '*';
 }
 // 화면바깥으로 못나가게 하세요. 
-void Player::Input() const
+void Player::Input()
 {
 	if (0 == _kbhit())
 	{
-		// 0.5초간 멈춘다.
 		Sleep(InterFrame);
-		// 일부러 멈추게 만들겁니다.
-		// continue; 반복문 내부에서만 사용가능
 		return;
 	}
 
@@ -76,7 +73,7 @@ void Player::Input() const
 }
 
 void Player::ShotUpdate()
-{
+{   // 플레이어가 가진 Bullet* BulletPtr; 을 통해 해당 선언이 가능함.
 	Bullet& NewBullet = BulletPtr[BulletCount]; // 값을 보면서 진행하기 위한 NewBullet을 선언
 	// 레퍼런스 선언이기에 NewBullet == BulletPtr 이다.
 	NewBullet.SetPos(Pos);

@@ -5,8 +5,10 @@ class Monster : public ConsoleGameObject
 {
 public:
 	Monster();
+
 	void XUpdate();
 	void YUpdate();
+
 	static void ChangeDir();
 	static const int ArrMonsterCount = 4;
 	static void Loading();
