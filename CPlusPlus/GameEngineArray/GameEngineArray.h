@@ -1,6 +1,6 @@
 #pragma once
 
-typedef int DataType;  // int를 DataType로 칭하겠다.
+//typedef int DataType;  // template로 class를 만들면서 지움.
 
 // 설명 :
 template <typename DataType>
@@ -14,23 +14,23 @@ public:
 
 
 	// constrcuter destructer
-	GameEngineArray(size_t _Value)
-		: ArrPtr(new DataType[_Value])
-		, ArrCount(_Value)
+	GameEngineArray(size_t _Value)    // 생성자
+		: ArrPtr(new DataType[_Value])  // heap영역에 _Value만큼의 배열을 만들고 ArrPtr에 받는다.
+		, ArrCount(_Value)              // _Value 만큼의 ArrCount를 받는다.
 	{
-		// ArrPtr = new int[100];
+		// ArrPtr = new int[100];  // 해당 대입을 통한 초기화 보다는 이니셜라이즈를 통한걸 추천.
 	}
 
-	~GameEngineArray()
+	~GameEngineArray() // 소멸자 -> 안전제거가 시작된다.
 	{
-		if (nullptr != ArrPtr)
+		if (nullptr != ArrPtr) //안전 제거
 		{
 			delete[] ArrPtr;
 			ArrPtr = nullptr;
 		}
 	}
 
-	GameEngineArray& operator=(const GameEngineArray& _Other)
+	GameEngineArray& operator=(const GameEngineArray& _Other) // =의 기능 만들기
 	{
 		DataType* Ptr = new DataType[_Other.ArrCount];
 
@@ -38,15 +38,8 @@ public:
 		{
 			Ptr[i] = _Other.ArrPtr[i];                  // 그안에 기존 배열 값을 넣는다.
 		}
-
-		// 삼항연산자. 
-		//ArrCount >= _Value ? true기존보다 같거나 작다 : false기존보다 크다;
 		ArrPtr = Ptr;
 		ArrCount = _Other.ArrCount;              // ArrCount에 _Value를 넣는다.
-
-		//ArrCount = _Other.ArrCount; // _Other.ArrCount의 값을 ArrCount에 대입.
-		//ArrPtr = _Other.ArrPtr;     // _Other.ArrPtr을 ArrPtr에 대입.
-
 		return *this;
 	}
 
@@ -91,8 +84,7 @@ public:
 	inline void ReSize(int _Value)
 	{
 		// 기존의 ArrPtr이 heap에 존재.
-		DataType* Ptr = new DataType[_Value];  // 새로운걸 만든다. Ptr또한 heap에 존재하지만
-		// 함수가 끝나면서 소멸될것.
+		DataType* Ptr = new DataType[_Value];  // 새로운 힙영역을 만들고 Ptr로 받는다.
 		if (nullptr == Ptr) // Ptr의 null체크.
 		{
 			return;
@@ -110,7 +102,7 @@ public:
 		}
 
 		ArrPtr = Ptr;               // null을 가리키고 있던 ArrPtr을 Ptr을 가르키도록 한다.
-		// Ptr에서 선언된 Heap영역을 지우지 않는 이유.
+		// 이후 Ptr에서 선언된 Heap영역을 지우지 않는 이유.
 		// ArrPtr과 Ptr이 같은구역을 가르키고 있는데 Ptr이 가르키고 있는 영역을 지우면
 		// ArrPtr이 가르키는 영역이 지워지는것.
 		// Ptr은 이 함수내에 선언된 변수이므로 함수가 끝나면 변수는 사라진다.
