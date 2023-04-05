@@ -19,7 +19,7 @@ int main()
     {
         //               600번지
         // int* ArrPtr = new int[20]
-        GameEngineArray Array0(10);   // 내가만든 arr로 10개 배열 만듦
+        GameEngineArray<int> Array0(10);   // 내가만든 arr로 10개 배열 만듦
 
 
         for (size_t i = 0; i < Array0.Count(); i++)
@@ -49,8 +49,8 @@ int main()
     }
 
     {
-        GameEngineArray Array0(10); // heap에 배열 10개를 만든다.
-        GameEngineArray Array1(5);  // heap에 배열 5개를 만든다.
+        GameEngineArray<int> Array0(10); // heap에 배열 10개를 만든다.
+        GameEngineArray<int> Array1(5);  // heap에 배열 5개를 만든다.
 
         for (size_t i = 0; i < Array0.Count(); i++)
         {
@@ -81,8 +81,8 @@ int main()
 
 
     {
-        GameEngineArray Array0(10);
-        GameEngineArray Array1(5);
+        GameEngineArray<int> Array0(10);
+        GameEngineArray<int> Array1(5);
 
         for (size_t i = 0; i < Array0.Count(); i++)
         {

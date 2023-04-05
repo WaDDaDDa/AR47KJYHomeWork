@@ -3,6 +3,7 @@
 typedef int DataType;  // int를 DataType로 칭하겠다.
 
 // 설명 :
+template <typename DataType>
 class GameEngineArray
 {
 public:
@@ -49,7 +50,7 @@ public:
 		return *this;
 	}
 
-	size_t Count()
+	inline size_t Count() const
 	{
 		return ArrCount;
 	}
@@ -87,7 +88,7 @@ public:
 	// 그 만들어진거에 기존데이터를 넣어주고
 	// 기존거는 삭제.
 
-	void ReSize(int _Value)
+	inline void ReSize(int _Value)
 	{
 		// 기존의 ArrPtr이 heap에 존재.
 		DataType* Ptr = new DataType[_Value];  // 새로운걸 만든다. Ptr또한 heap에 존재하지만

@@ -123,7 +123,7 @@ template<typename DataType>
 class Test
 {
 public:
-	DataType Value;
+	DataType Value;  // 실제 사용하기 전까지는 Value의 자료형을 알수 없다.
 };
 
 //class TestBullet
