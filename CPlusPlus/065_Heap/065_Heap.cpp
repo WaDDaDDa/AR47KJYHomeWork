@@ -15,6 +15,8 @@ int main()
     //  {76} normal block at 0x00000205893E68E0, 1 bytes long.  이런식으로 표시해줌.
 
 
+    // new 로 힙에 메모리를 만들었다면 반드시 delete하는 코드를 먼저치고 생각하라.
+
     // 힙영역에 선언은 new를 통해서 선언하게 됨.
     Monster* PtrMonster = new Monster();
 
