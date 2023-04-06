@@ -81,8 +81,8 @@ int main()
 
 
     {
-        GameEngineArray<int> Array0(10);
-        GameEngineArray<int> Array1(5);
+        GameEngineArray<int> Array0(7);
+        GameEngineArray<int> Array1(10);
 
         for (size_t i = 0; i < Array0.Count(); i++)
         {

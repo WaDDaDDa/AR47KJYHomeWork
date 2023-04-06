@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="GameEngineConsole.cpp" />
+    <ClCompile Include="ConsoleGameMath.cpp" />
+    <ClCompile Include="ConsoleGameObject.cpp" />
+    <ClCompile Include="ConsoleGameScreen.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ConsoleGameMath.h" />
+    <ClInclude Include="ConsoleGameObject.h" />
+    <ClInclude Include="ConsoleGameScreen.h" />
+    <ClInclude Include="GameEngineArray.h" />
+  </ItemGroup>
+</Project>

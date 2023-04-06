@@ -32,14 +32,14 @@ public:
 
 	GameEngineArray& operator=(const GameEngineArray& _Other) // =의 기능 만들기
 	{
-		DataType* Ptr = new DataType[_Other.ArrCount];
-
+		//DataType* Ptr = new DataType[_Other.ArrCount];
+		ReSize(_Other.ArrCount);
 		for (size_t i = 0; i < _Other.ArrCount; i++)
 		{
-			Ptr[i] = _Other.ArrPtr[i];                  // 그안에 기존 배열 값을 넣는다.
+			ArrPtr[i] = _Other.ArrPtr[i];                  // 그안에 기존 배열 값을 넣는다.
 		}
-		ArrPtr = Ptr;
-		ArrCount = _Other.ArrCount;              // ArrCount에 _Value를 넣는다.
+		// ArrPtr = Ptr;
+		//ArrCount = _Other.ArrCount;              // ArrCount에 _Value를 넣는다.
 		return *this;
 	}
 
