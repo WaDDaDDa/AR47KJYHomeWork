@@ -15,6 +15,11 @@ public:
 	GameEngineArray& operator=(GameEngineArray&& _Other) noexcept = delete;
 
 
+	GameEngineArray()
+	{
+
+	}
+
 	// constrcuter destructer
 	GameEngineArray(size_t _Value)
 	{
@@ -94,7 +99,7 @@ public:
 protected:
 
 private:
-	size_t ArrCount;
+	size_t ArrCount = 0;   // 최초에는 0이다.
 	DataType* ArrPtr = nullptr;
 
 };

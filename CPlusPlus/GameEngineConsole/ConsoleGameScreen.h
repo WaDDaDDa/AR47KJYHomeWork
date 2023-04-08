@@ -1,36 +1,45 @@
 #pragma once
 #include "ConsoleGameMath.h"
+#include "GameEngineArray.h"
 
 // 이게 1단계
 // 근본오브 근본 수학 물리 
 class ConsoleGameScreen
 {
 public:
-	// 클래스 내부에 전역변수를 선언할수가 있습니다.
-	static const int ScreenYSize = 10;
-	static const int ScreenXSize = 20;
 
 	static ConsoleGameScreen& GetMainScreen()
 	{
 		return MainScreen;
 	}
 
-	static int2 GetScreenSize();
+	int2 GetScreenSize();
+
+	void SetScreenSize(int2 _Size);
 
 	void ScreenClear();
 
 	void ScreenPrint() const;
 
-	static bool IsScreenOver(const int2& _Pos);
+	bool IsScreenOver(const int2& _Pos) const;
 
 	void SetScreenCharacter(const int2& _Pos, char _Ch);
 
 protected:
 
 private:
-	char Arr[ScreenYSize][ScreenXSize] = { 0, };
+	// char Arr[ScreenYSize][ScreenXSize] = { 0, };
+
+	//char** ArrScreen;
+	// 캐릭터의 배열을 가진 또다른 배열이라고 할수 있다.
+	// char를 여러개 가지고있는 GameEngineArray<char>가 된다.
+	// GameEngineArray<char>를 여러개 가지고 있을수있는 ArrScreen이 된다.
+	GameEngineArray<GameEngineArray<char>> ArrScreen;
+
+	int2 Size;
 
 	ConsoleGameScreen();
+	~ConsoleGameScreen();
 
 	// 싱글톤 패턴이라고 합니다.
 	// 패턴이란 => 클래스를 짤때 이러이러한 구조가 정말 많이 사용된다.

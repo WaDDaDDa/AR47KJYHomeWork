@@ -40,7 +40,9 @@ public:
 		UpdateValue = false;            // UpdataValue 가 false면 Off으로 껴져있다 의 의미.
 	}
 
-	void Render() const;   // 각 오브젝트가 가진 RenderChar를 출력시켜줌.
+	virtual void Update();
+	virtual void Render();   // 각 오브젝트가 가진 RenderChar를 출력시켜줌.
+	
 
 protected:
 	int2 Pos;

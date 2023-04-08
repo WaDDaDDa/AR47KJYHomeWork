@@ -1,12 +1,15 @@
 #pragma once
 #include <Windows.h>
 #include <assert.h>
+#include <iostream>
 
 class GameEngineDebug
 {
 public:
     GameEngineDebug();
     ~GameEngineDebug();
+
+    static void LeckCheck();
 
     GameEngineDebug& operator=(const GameEngineDebug& _Other) = delete;
     GameEngineDebug& operator=(const GameEngineDebug&& _Other) = delete;
