@@ -7,11 +7,15 @@
 class ConsoleGameScreen
 {
 public:
-
 	static ConsoleGameScreen& GetMainScreen()
 	{
 		return MainScreen;
 	}
+
+	//static int2 GetMainScreenSize()
+	//{
+	//	return MainScreen.GetScreenSize();
+	//}
 
 	int2 GetScreenSize();
 
@@ -30,13 +34,16 @@ protected:
 private:
 	// char Arr[ScreenYSize][ScreenXSize] = { 0, };
 
-	//char** ArrScreen;
-	// 캐릭터의 배열을 가진 또다른 배열이라고 할수 있다.
-	// char를 여러개 가지고있는 GameEngineArray<char>가 된다.
-	// GameEngineArray<char>를 여러개 가지고 있을수있는 ArrScreen이 된다.
+	// char** ArrScreen = nullptr;
+
+	// GameEngineArray<char> ArrPtr 여러개 
+	// char를 여러개 가질수 있는 녀석
 	GameEngineArray<GameEngineArray<char>> ArrScreen;
 
 	int2 Size;
+
+	// 캐릭터의 배열을 가진 또다른 배열이라고 할수 있어요.
+
 
 	ConsoleGameScreen();
 	~ConsoleGameScreen();

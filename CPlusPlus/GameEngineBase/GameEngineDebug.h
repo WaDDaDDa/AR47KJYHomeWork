@@ -1,20 +1,22 @@
 #pragma once
 #include <Windows.h>
 #include <assert.h>
-#include <iostream>
 
+//// Ό³Έν :
 class GameEngineDebug
 {
 public:
-    GameEngineDebug();
-    ~GameEngineDebug();
+	// constrcuter destructer
+	GameEngineDebug();
+	~GameEngineDebug();
 
-    static void LeckCheck();
+	// delete Function
+	GameEngineDebug(const GameEngineDebug& _Other) = delete;
+	GameEngineDebug(GameEngineDebug&& _Other) noexcept = delete;
+	GameEngineDebug& operator=(const GameEngineDebug& _Other) = delete;
+	GameEngineDebug& operator=(GameEngineDebug&& _Other) noexcept = delete;
 
-    GameEngineDebug& operator=(const GameEngineDebug& _Other) = delete;
-    GameEngineDebug& operator=(const GameEngineDebug&& _Other) = delete;
-    GameEngineDebug(const GameEngineDebug& _Other) = delete;
-    GameEngineDebug(const GameEngineDebug&& _Other) = delete;
+	static void LeckCheck();
 
 protected:
 

@@ -10,7 +10,7 @@
 
 GameEngineArray<ConsoleGameObject*> AllObject;
 
-void CreateConsoleObject()
+void CreateConsoleObject() 
 {
 
 }
@@ -19,7 +19,7 @@ int main()
 {
 	GameEngineDebug::LeckCheck();
 
-	int2 ScreenSize = { 5, 5 };
+	int2 ScreenSize = {5, 5};
 
 	ConsoleGameObject* NewPlayer = new Player();
 

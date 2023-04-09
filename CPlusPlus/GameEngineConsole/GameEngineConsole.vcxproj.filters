@@ -12,4 +12,9 @@
     <ClInclude Include="ConsoleGameScreen.h" />
     <ClInclude Include="GameEngineArray.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Filter Include="DataStruct">
+      <UniqueIdentifier>{d9ed86fc-bf15-49e1-90e0-75f3b7a24a02}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
 </Project>

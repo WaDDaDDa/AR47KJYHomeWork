@@ -5,44 +5,43 @@
 class ConsoleGameObject
 {
 public:
-	inline void SetPos(const int2& _Value)  // 위치를 설정하는 함수.
+	inline void SetPos(const int2& _Value)
 	{
 		Pos = _Value;
 	}
 
-	inline int2 GetPos() const             // 위치를 받는 함수.
+	inline int2 GetPos() const
 	{
 		return Pos;
 	}
 
-	inline bool IsDeath() const            // 데이터의 완전한 삭제를 Death로 표현.
+	bool IsDeath()
 	{
 		return DeathValue;
 	}
 
-	inline void Death()
+	void Death()
 	{
 		DeathValue = true;
 	}
 
-	inline bool IsUpdate() const           // UpdateValue를 반환하는 함수.
+	bool IsUpdate()
 	{
 		return UpdateValue;
 	}
 
-	inline void On()
+	void On()
 	{
-		UpdateValue = true;              // UpdataValue 가 true면 On으로 켜져있다 의 의미.
+		UpdateValue = true;
 	}
 
-	inline void Off()
+	void Off()
 	{
-		UpdateValue = false;            // UpdataValue 가 false면 Off으로 껴져있다 의 의미.
+		UpdateValue = false;
 	}
 
 	virtual void Update();
-	virtual void Render();   // 각 오브젝트가 가진 RenderChar를 출력시켜줌.
-	
+	virtual void Render();
 
 protected:
 	int2 Pos;

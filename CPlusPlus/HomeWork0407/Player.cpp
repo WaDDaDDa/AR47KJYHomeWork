@@ -1,7 +1,7 @@
 #include "Player.h"
-#include <GameEngineConsole/ConsoleGameScreen.h>
 #include <conio.h>
 #include <Windows.h>
+#include <GameEngineConsole/ConsoleGameScreen.h>
 
 bool Player::IsGameUpdate = true;
 

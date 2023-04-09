@@ -1,7 +1,6 @@
 #pragma once
 #include <GameEngineBase/GameEngineDebug.h>
 // #include <Program Files/Adobe/Adobe Creative Cloud Experience/>
-// 헤더의 <> 와 "" 차이는 포함디렉터리로 접근하면 <>인것.
 
 // typedef int DataType;
 
@@ -14,11 +13,10 @@ public:
 	GameEngineArray(GameEngineArray&& _Other) noexcept = delete;
 	GameEngineArray& operator=(GameEngineArray&& _Other) noexcept = delete;
 
-
 	GameEngineArray()
 	{
-
 	}
+
 
 	// constrcuter destructer
 	GameEngineArray(size_t _Value)
@@ -52,13 +50,13 @@ public:
 		ReSize(_Other.ArrCount);
 		for (size_t i = 0; i < _Other.ArrCount; i++)
 		{
-			ArrPtr[i] = _Other[i];
+			 ArrPtr[i] = _Other[i];
 		}
 
 		return *this;
 	}
 
-	size_t Count()
+	size_t Count() 
 	{
 		return ArrCount;
 	}
@@ -68,7 +66,7 @@ public:
 		return ArrPtr[_Index];
 	}
 
-	void ReSize(int _Value)
+	void ReSize(int _Value) 
 	{
 		// 20줄 안팍.
 		// 삼항 연산자 써보시면 좋을겁니다.
@@ -99,7 +97,7 @@ public:
 protected:
 
 private:
-	size_t ArrCount = 0;   // 최초에는 0이다.
+	size_t ArrCount = 0;
 	DataType* ArrPtr = nullptr;
 
 };
