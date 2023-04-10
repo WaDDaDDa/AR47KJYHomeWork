@@ -3,8 +3,14 @@
   <ItemGroup>
     <ClCompile Include="HomeWork0407.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Bomb.cpp" />
+    <ClCompile Include="GameEnum.cpp" />
+    <ClCompile Include="ConsoleObjectManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Bomb.h" />
+    <ClInclude Include="GameEnum.h" />
+    <ClInclude Include="ConsoleObjectManager.h" />
   </ItemGroup>
 </Project>

@@ -2,6 +2,9 @@
 #include <conio.h>
 #include <Windows.h>
 #include <GameEngineConsole/ConsoleGameScreen.h>
+#include "ConsoleObjectManager.h"
+#include "Bomb.h"
+#include "GameEnum.h"
 
 bool Player::IsGameUpdate = true;
 
@@ -12,6 +15,8 @@ Player::Player()
 // 화면바깥으로 못나가게 하세요. 
 void Player::Update()
 {
+	ConsoleGameObject::Update();
+
 	if (0 == _kbhit())
 	{
 		return;
@@ -63,6 +68,10 @@ void Player::Update()
 	case 'F':
 	{
 		// 폭탄설치 
+		Bomb* NewBomb = ConsoleObjectManager::CreateConsoleObject<Bomb>(ObjectOrder::Bomb);
+
+		NewBomb->SetPos(GetPos());
+
 		break;
 	}
 	case 'q':
