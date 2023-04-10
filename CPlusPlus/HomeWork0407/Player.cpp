@@ -11,12 +11,12 @@ bool Player::IsGameUpdate = true;
 Player::Player()
 {
 	RenderChar = '*';
+	SetPos(ConsoleGameScreen::GetMainScreen().GetScreenSize().Half());
+
 }
 // È­¸é¹Ù±ùÀ¸·Î ¸ø³ª°¡°Ô ÇÏ¼¼¿ä. 
 void Player::Update()
 {
-	ConsoleGameObject::Update();
-
 	if (0 == _kbhit())
 	{
 		return;
@@ -67,11 +67,11 @@ void Player::Update()
 	case 'f':
 	case 'F':
 	{
-		// ÆøÅº¼³Ä¡ 
 		Bomb* NewBomb = ConsoleObjectManager::CreateConsoleObject<Bomb>(ObjectOrder::Bomb);
-
 		NewBomb->SetPos(GetPos());
 
+
+		// ÆøÅº¼³Ä¡ 
 		break;
 	}
 	case 'q':
