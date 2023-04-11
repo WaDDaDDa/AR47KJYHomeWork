@@ -36,23 +36,8 @@ public:
         return Fire;
     }
 
-    void Explosion()
-    {
-        if (FirePower == FireCount)
-        {
-            return;
-        }
+    void Explosion();
 
-        for (int i = 0; i < FireCount; i++)
-        {
-            ConsoleGameScreen::GetMainScreen().SetScreenCharacter({ GetPos().X - i, GetPos().Y }, RenderChar);
-            ConsoleGameScreen::GetMainScreen().SetScreenCharacter({ GetPos().X + i, GetPos().Y }, RenderChar);
-            ConsoleGameScreen::GetMainScreen().SetScreenCharacter({ GetPos().X , GetPos().Y - i }, RenderChar);
-            ConsoleGameScreen::GetMainScreen().SetScreenCharacter({ GetPos().X , GetPos().Y + i }, RenderChar);
-        }
-        FireCount++;
-    }
-    
 protected:
     void Update() override;
     void Render() override;
@@ -60,7 +45,7 @@ protected:
 private:
     int BoomCount = 10;
     int FireCount = 0;
-    int FirePower = 7;
+    int FirePower = 5;
     bool Fire = false;
 
 };

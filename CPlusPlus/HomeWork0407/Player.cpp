@@ -14,6 +14,34 @@ Player::Player()
 	SetPos(ConsoleGameScreen::GetMainScreen().GetScreenSize().Half());
 
 }
+
+// 다음이동위치가 폭탄이면 트루.
+bool Player::IsBomb(int2 _NextPos)
+{
+	// 폭탄이 설치되었다면 못통과하게 만들어놓으세요.
+	// 폭탄그룹의 배열을 BombGroup으로 선언하여 값을 받음.
+	GameEngineArray<ConsoleGameObject*>& BombGroup
+		= ConsoleObjectManager::GetGroup(ObjectOrder::Bomb);
+
+	// 값을 받은 BombGroup를 이용하여 폭탄그룹의 폭탄들을 for문으로 nextpos와 체크
+	// 또한 null체크도 해서 폭탄이 터지고 난다음 nullptr이 되는데 그럴경우는
+	// continue로 바로 다음 것을 체크하도록.
+
+	for (size_t i = 0; i < BombGroup.Count(); i++)
+	{
+		if (nullptr == BombGroup[i])
+		{
+			continue;
+		}
+
+		if (BombGroup[i]->GetPos() == _NextPos)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 // 화면바깥으로 못나가게 하세요. 
 void Player::Update()
 {
@@ -24,23 +52,31 @@ void Player::Update()
 
 	char Ch = _getch();
 
-	int2 NextPos = { 0, 0 };
+	int2 NextPos = Pos;
 
 	switch (Ch)
 	{
 	case 'a':
 	case 'A':
-		NextPos = Pos;
 		NextPos.X -= 1;
-		if (false == ConsoleGameScreen::GetMainScreen().IsScreenOver(NextPos))
+		if (true == IsBomb(NextPos)) // 다음위치가 폭탄이면 리턴.
+		{
+			return;
+		}
+		else if (false == ConsoleGameScreen::GetMainScreen().IsScreenOver(NextPos))
 		{
 			Pos.X -= 1;
 		}
 		break;
 	case 'd':
 	case 'D':
-		NextPos = Pos;
 		NextPos.X += 1;
+
+		if (true == IsBomb(NextPos)) // 다음위치가 폭탄이면 리턴.
+		{
+			return;
+		}
+
 		if (false == ConsoleGameScreen::GetMainScreen().IsScreenOver(NextPos))
 		{
 			Pos.X += 1;
@@ -48,8 +84,13 @@ void Player::Update()
 		break;
 	case 'w':
 	case 'W':
-		NextPos = Pos;
 		NextPos.Y -= 1;
+
+		if (true == IsBomb(NextPos)) // 다음위치가 폭탄이면 리턴.
+		{
+			return;
+		}
+
 		if (false == ConsoleGameScreen::GetMainScreen().IsScreenOver(NextPos))
 		{
 			Pos.Y -= 1;
@@ -57,8 +98,13 @@ void Player::Update()
 		break;
 	case 's':
 	case 'S':
-		NextPos = Pos;
 		NextPos.Y += 1;
+
+		if (true == IsBomb(NextPos)) // 다음위치가 폭탄이면 리턴.
+		{
+			return;
+		}
+
 		if (false == ConsoleGameScreen::GetMainScreen().IsScreenOver(NextPos))
 		{
 			Pos.Y += 1;
@@ -69,9 +115,6 @@ void Player::Update()
 	{
 		Bomb* NewBomb = ConsoleObjectManager::CreateConsoleObject<Bomb>(ObjectOrder::Bomb);
 		NewBomb->SetPos(GetPos());
-
-
-		// 폭탄설치 
 		break;
 	}
 	case 'q':

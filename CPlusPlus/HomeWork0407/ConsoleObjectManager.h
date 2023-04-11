@@ -41,7 +41,17 @@ public:
 	static void ConsoleAllObjectUpdate();
 	static void ConsoleAllObjectRender();
 	static void ConsoleAllObjectDelete();
+	static void ConsoleAllObjectRelease();
 
+
+	template <typename EnumType>
+	static GameEngineArray<ConsoleGameObject*>& GetGroup(EnumType _Order)
+	{
+		return AllObject[(int)_Order];
+	}
+
+	// Enum타입으로 지정한 그룹전체 배열을 받는것.
+	// ex) 폭탄이면 AllObject[0] 으로 받는것.
 	static GameEngineArray<ConsoleGameObject*>& GetGroup(int _Order)
 	{
 		return AllObject[_Order];

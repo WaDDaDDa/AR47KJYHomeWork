@@ -17,6 +17,7 @@ void Bomb::Update()  // 가상함수 오버로딩
 	// 오버로딩된 B를 실행하는 동작을 할수도 있으면 이런식으로 아무것도 없는 Update()함수
 	// 이더라도 오버로딩된 함수안에 사용해주면 부모의 A를 실행하고 자식의B를 실행하도록 가능하다.
 
+
 	// 다른 곳에 사용될때에도 부모코드를 확인하기에 용이하다.
 	if (false == GetFire())   // Fire 이 false 면 폭탄카운트 감소하고 0보다 작아지면
 		                      // 폭탄의 문자를 &로 바꾸고 Fire를 true로 바꾼다.
@@ -45,9 +46,25 @@ void Bomb::Render()
 
 		if (FireCount == FirePower) // 폭발 카운트가 0보다 작아지면 폭발종료.
 		{
-			FireOff();
-			Off();
+			Death();
 		}
 	}
 
+}
+
+void Bomb::Explosion()
+{
+	if (FirePower == FireCount)
+	{
+		return;
+	}
+
+	for (int i = 0; i < FireCount; i++)
+	{
+		ConsoleGameScreen::GetMainScreen().SetScreenCharacter(GetPos().Left(i), RenderChar);
+		ConsoleGameScreen::GetMainScreen().SetScreenCharacter(GetPos().Right(i), RenderChar);
+		ConsoleGameScreen::GetMainScreen().SetScreenCharacter(GetPos().Up(i), RenderChar);
+		ConsoleGameScreen::GetMainScreen().SetScreenCharacter(GetPos().Down(i), RenderChar);
+	}
+	FireCount++;
 }
