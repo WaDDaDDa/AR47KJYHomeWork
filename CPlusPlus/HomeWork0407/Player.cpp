@@ -34,7 +34,9 @@ bool Player::IsBomb(int2 _NextPos)
 			continue;
 		}
 
-		if (BombGroup[i]->GetPos() == _NextPos)
+		int2 BombPos = BombGroup[i]->GetPos();
+
+		if (BombPos == _NextPos)
 		{
 			return true;
 		}
