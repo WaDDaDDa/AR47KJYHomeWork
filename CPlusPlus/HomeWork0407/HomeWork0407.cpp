@@ -1,13 +1,17 @@
 ﻿
 #include <iostream>
+#include <conio.h>
+
 #include <GameEngineBase/GameEngineDebug.h>
+
 #include <GameEngineConsole/ConsoleGameScreen.h>
 #include <GameEngineConsole/ConsoleGameObject.h>
+#include <GameEngineConsole/ConsoleObjectManager.h>
+
+#include "GameEnum.h"
 #include "Player.h"
 #include "Bomb.h"
-#include "ConsoleObjectManager.h"
-#include "GameEnum.h"
-#include <conio.h>
+#include "Item.h"
 
 int main()
 {
@@ -26,6 +30,8 @@ int main()
 	// CreateConsoleObject<Bomb>(ObjectOrder::Bomb);
 	// 1번 그룹속한다.
 	ConsoleObjectManager::CreateConsoleObject<Player>(ObjectOrder::Player);
+
+	ConsoleObjectManager::CreateConsoleObject<Item>(ObjectOrder::Item);
 
 	// CreateConsoleObject<Monster>(2);
 

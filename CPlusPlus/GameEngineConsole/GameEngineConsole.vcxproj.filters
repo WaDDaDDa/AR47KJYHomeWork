@@ -5,12 +5,14 @@
     <ClCompile Include="ConsoleGameMath.cpp" />
     <ClCompile Include="ConsoleGameObject.cpp" />
     <ClCompile Include="ConsoleGameScreen.cpp" />
+    <ClCompile Include="ConsoleObjectManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleGameMath.h" />
     <ClInclude Include="ConsoleGameObject.h" />
     <ClInclude Include="ConsoleGameScreen.h" />
     <ClInclude Include="GameEngineArray.h" />
+    <ClInclude Include="ConsoleObjectManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="DataStruct">

@@ -143,15 +143,15 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="ConsoleObjectManager.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="GameEnum.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="HomeWork0407.cpp" />
+    <ClCompile Include="Item.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -167,11 +167,11 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="ConsoleObjectManager.h">
+    <ClInclude Include="GameEnum.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="GameEnum.h">
+    <ClInclude Include="Item.h">
       <SubType>
       </SubType>
     </ClInclude>

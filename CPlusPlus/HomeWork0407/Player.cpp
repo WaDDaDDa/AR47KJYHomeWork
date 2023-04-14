@@ -2,9 +2,10 @@
 #include <conio.h>
 #include <Windows.h>
 #include <GameEngineConsole/ConsoleGameScreen.h>
-#include "ConsoleObjectManager.h"
+#include <GameEngineConsole/ConsoleObjectManager.h>
 #include "Bomb.h"
 #include "GameEnum.h"
+#include "Item.h"
 
 bool Player::IsGameUpdate = true;
 
@@ -45,9 +46,38 @@ bool Player::IsBomb(int2 _NextPos)
 	return false;
 }
 
+void Player::GetItem()
+{
+	std::list<ConsoleGameObject*>& ItemGroup
+		= ConsoleObjectManager::GetGroup(ObjectOrder::Item); // 아이템그룹을 받고
+
+	for (ConsoleGameObject* Ptr : ItemGroup)
+	{
+		// 터질때가 있습니다.
+		if (nullptr == Ptr)
+		{
+			continue;
+		}
+
+		int2 ItemPos = Ptr->GetPos(); 
+		if (Pos == ItemPos)   // 현재위치가 아이템 그룹이면
+		{
+			BombPower++;     // 플레이어의 bombpower 늘리고
+			Ptr->Death();    // 아이템 죽이고    아이템 크리에이트
+			ConsoleObjectManager::CreateConsoleObject<Item>(ObjectOrder::Item); 
+			
+			return ;
+		}
+	}
+
+	return ;
+}
+
 // 화면바깥으로 못나가게 하세요. 
 void Player::Update()
 {
+	GetItem();
+
 	if (0 == _kbhit())
 	{
 		return;
@@ -70,6 +100,7 @@ void Player::Update()
 		{
 			Pos.X -= 1;
 		}
+
 		break;
 	case 'd':
 	case 'D':

@@ -132,9 +132,17 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="GameEngineRandom.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngineDebug.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GameEngineRandom.h">
       <SubType>
       </SubType>
     </ClInclude>

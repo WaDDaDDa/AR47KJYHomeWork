@@ -5,12 +5,12 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="GameEnum.cpp" />
-    <ClCompile Include="ConsoleObjectManager.cpp" />
+    <ClCompile Include="Item.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="GameEnum.h" />
-    <ClInclude Include="ConsoleObjectManager.h" />
+    <ClInclude Include="Item.h" />
   </ItemGroup>
 </Project>

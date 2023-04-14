@@ -25,7 +25,7 @@ protected:
 
 private:
 	int BoomCount = 5;
-	int MaxExpPower = 5;
+	int MaxExpPower = 1;
 	int CurExpPower = 0;
 };
 
