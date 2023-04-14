@@ -31,10 +31,10 @@ void Head::IsBodyCheck()
 		}
 
 		int2 BodyPos = Ptr->GetPos();
-		if (Pos == BodyPos)   // 현재위치가 아이템 그룹이면
+		if (Pos == BodyPos)   // 현재위치가 바디 그룹이면
 		{
 			
-			Ptr->Death();    // 바디 죽이고    아이템 크리에이트
+			Ptr->Death();    // 바디 죽이고    바디 크리에이트
 			ConsoleObjectManager::CreateConsoleObject<Body>(SnakeEnum::Body);
 
 			return;
