@@ -18,29 +18,30 @@ Player::Player()
 // 다음이동위치가 폭탄이면 트루.
 bool Player::IsBomb(int2 _NextPos)
 {
-	// 폭탄이 설치되었다면 못통과하게 만들어놓으세요.
-	// 폭탄그룹의 배열을 BombGroup으로 선언하여 값을 받음.
-	GameEngineArray<ConsoleGameObject*>& BombGroup
+	std::list<ConsoleGameObject*>& BombGroup
 		= ConsoleObjectManager::GetGroup(ObjectOrder::Bomb);
 
-	// 값을 받은 BombGroup를 이용하여 폭탄그룹의 폭탄들을 for문으로 nextpos와 체크
-	// 또한 null체크도 해서 폭탄이 터지고 난다음 nullptr이 되는데 그럴경우는
-	// continue로 바로 다음 것을 체크하도록.
+	// Ranged for 라는 문법이에요
 
-	for (size_t i = 0; i < BombGroup.Count(); i++)
+	// 절대절대절대. 내부에서 구조나 개수가 바뀌는 행동을 하면 안되요.
+	// push_back
+	// push_front
+	// erase
+	for (ConsoleGameObject* Ptr : BombGroup)
 	{
-		if (nullptr == BombGroup[i])
+		// 터질때가 있습니다.
+		if (nullptr == Ptr)
 		{
 			continue;
 		}
 
-		int2 BombPos = BombGroup[i]->GetPos();
-
-		if (BombPos == _NextPos)
+		int2 BombPos = Ptr->GetPos();
+		if (_NextPos == BombPos)
 		{
 			return true;
 		}
 	}
+
 	return false;
 }
 
@@ -116,6 +117,7 @@ void Player::Update()
 	case 'F':
 	{
 		Bomb* NewBomb = ConsoleObjectManager::CreateConsoleObject<Bomb>(ObjectOrder::Bomb);
+		NewBomb->Init(Player::BombPower);
 		NewBomb->SetPos(GetPos());
 		break;
 	}

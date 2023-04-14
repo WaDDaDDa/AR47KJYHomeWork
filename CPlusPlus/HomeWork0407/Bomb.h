@@ -1,52 +1,31 @@
 #pragma once
-
 #include <GameEngineConsole/ConsoleGameObject.h>
-#include <GameEngineConsole/ConsoleGameScreen.h>
 
 
 class ConsoleGameScreen;
 class Bomb : public ConsoleGameObject
 {
+
 public:
-    Bomb();
-    ~Bomb();
+	// constrcuter destructer
+	Bomb();
+	~Bomb();
 
-    Bomb& operator=(const Bomb& _Other) = delete;
-    Bomb& operator=(const Bomb&& _Other) = delete;
-    Bomb(const Bomb& _Other) = delete;
-    Bomb(const Bomb&& _Other) = delete;
+	// delete Function
+	Bomb(const Bomb& _Other) = delete;
+	Bomb(Bomb&& _Other) noexcept = delete;
+	Bomb& operator=(const Bomb& _Other) = delete;
+	Bomb& operator=(Bomb&& _Other) noexcept = delete;
 
-    void SetChar(char _Char)
-    {
-        RenderChar = _Char;
-    }
-
-    void FireOn()
-    {
-        Fire = true;
-    }
-
-    void FireOff()
-    {
-        Fire = false;
-    }
-
-    bool GetFire()
-    {
-        return Fire;
-    }
-
-    void Explosion();
+	void Init(int _BombPower);
 
 protected:
-    void Update() override;
-    void Render() override;
+	void Update() override;
+	void Render() override;
 
 private:
-    int BoomCount = 10;
-    int FireCount = 0;
-    int FirePower = 5;
-    bool Fire = false;
-
+	int BoomCount = 5;
+	int MaxExpPower = 5;
+	int CurExpPower = 0;
 };
 

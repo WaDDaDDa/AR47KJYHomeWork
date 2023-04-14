@@ -1,6 +1,6 @@
 #pragma once
 #include "ConsoleGameMath.h"
-#include "GameEngineArray.h"
+#include <vector>
 
 // 이게 1단계
 // 근본오브 근본 수학 물리 
@@ -38,7 +38,7 @@ private:
 
 	// GameEngineArray<char> ArrPtr 여러개 
 	// char를 여러개 가질수 있는 녀석
-	GameEngineArray<GameEngineArray<char>> ArrScreen;
+	std::vector<std::vector<char>> ArrScreen;
 
 	int2 Size;
 

@@ -68,13 +68,13 @@ void ConsoleGameScreen::SetScreenSize(int2 _Size)
 	
 	// ArrScreen == GameEngineArray<GameEngineArray<char>>
 	// ArrScreen DataType == GameEngineArray<char>
-	ArrScreen.ReSize(Size.Y);
+	ArrScreen.resize(Size.Y);
 
 	for (size_t i = 0; i < Size.Y; i++)
 	{
 		// ArrScreen[i] == GameEngineArray<char>
 		// ArrScreen[i] DataType == char
-		ArrScreen[i].ReSize(Size.X);
+		ArrScreen[i].resize(Size.X);
 	}
 
 

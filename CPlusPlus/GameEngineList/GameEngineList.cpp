@@ -155,7 +155,15 @@ public:
 
     void push_front(const DataType& _Data)
     {
+        ListNode* NewListNode = new ListNode();
+        NewListNode->Value = _Data;
 
+        ListNode* NextNode = StartNode->Next;
+
+        NextNode->Prev = NewListNode;
+        StartNode->Next = NewListNode;
+        NewListNode->Next = NextNode;
+        NewListNode->Prev = StartNode;
     }
 
 private:
