@@ -43,8 +43,30 @@ public:
 	virtual void Update();
 	virtual void Render();
 
+	inline void SetNextPos(const int2& _Value)
+	{
+		NextPos = _Value;
+	}
+
+	inline int2 GetNextPos() const
+	{
+		return NextPos;
+	}
+
+	inline void SetPrevPos()
+	{
+		PrevPos = Pos;
+	}
+
+	inline int2 GetPrevPos() const
+	{
+		return PrevPos;
+	}
+
 protected:
 	int2 Pos;
+	int2 NextPos;
+	int2 PrevPos;
 	char RenderChar = ' ';
 
 private:

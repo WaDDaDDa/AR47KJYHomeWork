@@ -4,6 +4,7 @@
 #include <GameEngineConsole/ConsoleGameScreen.h>
 #include <GameEngineConsole/ConsoleObjectManager.h>
 #include "SnakeEnum.h"
+#include "feed.h"
 
 bool Head::IsPlay = true;
 
@@ -19,23 +20,24 @@ Head::~Head()
 
 void Head::IsBodyCheck()
 {
-	std::list<ConsoleGameObject*>& BodyGroup
-		= ConsoleObjectManager::GetGroup(SnakeEnum::Body); // 아이템그룹을 받고
+	std::list<ConsoleGameObject*>& FeedGroup
+		= ConsoleObjectManager::GetGroup(SnakeEnum::feed); // 아이템그룹을 받고
 
-	for (ConsoleGameObject* Ptr : BodyGroup)
+
+	for (ConsoleGameObject* Ptr : FeedGroup)
 	{
-		// 터질때가 있습니다.
 		if (nullptr == Ptr)
 		{
 			continue;
 		}
 
-		int2 BodyPos = Ptr->GetPos();
-		if (Pos == BodyPos)   // 현재위치가 바디 그룹이면
+		int2 FeedPos = Ptr->GetPos();
+		if (Pos == FeedPos)   // 현재위치가 바디 그룹이면
 		{
 			
-			Ptr->Death();    // 바디 죽이고    바디 크리에이트
+			Ptr->Death();    // 피드 죽이고    피드 와 바디 크리에이트
 			ConsoleObjectManager::CreateConsoleObject<Body>(SnakeEnum::Body);
+			ConsoleObjectManager::CreateConsoleObject<feed>(SnakeEnum::feed);
 
 			return;
 		}
@@ -59,6 +61,7 @@ void Head::Update()
 	}
 
 	IsBodyCheck();
+	SetPrevPos();
 
 	if (0 == _kbhit())
 	{
@@ -75,6 +78,7 @@ void Head::Update()
 	{
 	case 'a':
 	case 'A':
+		
 		Dir = int2::Left;
 		break;
 	case 'd':

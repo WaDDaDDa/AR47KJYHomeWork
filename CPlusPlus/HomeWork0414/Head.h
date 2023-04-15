@@ -24,6 +24,7 @@ protected:
 
 private:
 	int2 Dir = int2::Up;
+	int Tail = 0;
 
 };
 

@@ -15,6 +15,11 @@ public:
 	Parts& operator=(const Parts& _Other) = delete;
 	Parts& operator=(Parts&& _Other) noexcept = delete;
 
+	void push_back(Parts* _parts) 
+	{
+		Next = _parts;
+	}
+
 protected:
 	void Update() override;
 

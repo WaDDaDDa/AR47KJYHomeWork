@@ -11,6 +11,7 @@
 #include "Body.h"
 #include <conio.h>
 #include "SnakeEnum.h"
+#include "feed.h"
 
 int main()
 {
@@ -23,9 +24,9 @@ int main()
 
 	int2 ScreenSize = { 10, 10 };
 	ConsoleGameScreen::GetMainScreen().SetScreenSize(ScreenSize);
-	
+
 	ConsoleObjectManager::CreateConsoleObject<Head>(SnakeEnum::Head);
-	ConsoleObjectManager::CreateConsoleObject<Body>(SnakeEnum::Body);
+	ConsoleObjectManager::CreateConsoleObject<feed>(SnakeEnum::feed);
 
 
 
@@ -35,7 +36,7 @@ int main()
 	// 추천 벡터를 이용해라.
 	// 빈공간이 나올때가지 랜덤돌린다 <= 최악의 선택
 	// ConsoleObjectManager::CreateConsoleObject<Body>(1);
-	// 주의사항 절대 클리어 못하는 상황이 나오는데 이건 처리 안해도 됩니다.
+	// 주의사항 절대 클리어 못하는 상황이 나오는데 이건- 처리 안해도 됩니다.
 
 	// 2번째 플레이어 먹으면 아이템은 몸통으로 뒤따라오게 만들고
 	// 그때 모양이 바뀝니다.

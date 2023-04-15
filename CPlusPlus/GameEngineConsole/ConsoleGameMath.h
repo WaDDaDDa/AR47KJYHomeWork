@@ -29,6 +29,12 @@ public:
 		return X == _Other.X && Y == _Other.Y;
 	}
 
+	bool operator!=(const int2& _Other)const
+	{
+		return X != _Other.X || Y != _Other.Y;
+	}
+
+
 	int2 operator+(const int2& _Other) const
 	{
 		int2 ReturnValue = *this;
@@ -44,6 +50,7 @@ public:
 		ReturnValue.Y *= _Value;
 		return ReturnValue;
 	}
+
 
 
 public:
