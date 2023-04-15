@@ -16,7 +16,7 @@ public:
     feed(const feed&& _Other) = delete;
 
     void Update()override;
-
+    void feedcheck();
 protected:
 
 private:

@@ -2,6 +2,7 @@
 
 #include <GameEngineBase/GameEngineRandom.h>
 #include <GameEngineConsole/ConsoleGameScreen.h>
+#include <vector>
 
 feed::feed()
 {
@@ -20,4 +21,18 @@ feed::~feed()
 void feed::Update()
 {
 	ConsoleGameObject::Update();
+}
+
+void feed::feedcheck()
+{
+	std::vector<int2> emptyspace;
+
+	for (int y = 0; y < ConsoleGameScreen::GetMainScreen().GetScreenSize().Y; y++)
+	{
+		for (int x = 0; x < ConsoleGameScreen::GetMainScreen().GetScreenSize().X; x++)
+		{
+			//map[y][x] = true;
+		}
+	}
+
 }

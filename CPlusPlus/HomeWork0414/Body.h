@@ -19,8 +19,11 @@ public:
 	Body& operator=(Body&& _Other) noexcept = delete;
 
 	void Update() override;
+	void Update2();
 protected:
 
 private:
+	int BodyCount = 0;
+
 };
 

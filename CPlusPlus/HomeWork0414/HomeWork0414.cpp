@@ -29,7 +29,6 @@ int main()
 	ConsoleObjectManager::CreateConsoleObject<feed>(SnakeEnum::feed);
 
 
-
 	// 1번째 
 	// 바디는 플레이어와 플레이어를 따라다니는 
 	// 바디가 존재하지 않는 공간에 만들 방법을 생각해 내야 합니다.

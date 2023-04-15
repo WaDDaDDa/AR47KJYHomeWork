@@ -23,7 +23,6 @@ void Head::IsBodyCheck()
 	std::list<ConsoleGameObject*>& FeedGroup
 		= ConsoleObjectManager::GetGroup(SnakeEnum::feed); // 아이템그룹을 받고
 
-
 	for (ConsoleGameObject* Ptr : FeedGroup)
 	{
 		if (nullptr == Ptr)

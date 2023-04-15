@@ -9,39 +9,70 @@ Body::Body()
 	int X = GameEngineRandom::MainRandom.RandomInt(0, ConsoleGameScreen::GetMainScreen().GetScreenSize().X - 1);
 	int Y = GameEngineRandom::MainRandom.RandomInt(0, ConsoleGameScreen::GetMainScreen().GetScreenSize().Y - 1);
 	SetPos({ X, Y });
-	//SetNextPos();
+	BodyCount++;
 }
 
 Body::~Body()
 {
 }
 
+void Body::Update2()
+{
+
+}
+
 void Body::Update()
 {
 	ConsoleGameObject::Update();
 
-	std::list<ConsoleGameObject*>&HeadGroup
+	std::list<ConsoleGameObject*>& HeadGroup
 		= ConsoleObjectManager::GetGroup(SnakeEnum::Head);
 
-	for (ConsoleGameObject* Ptr : HeadGroup)
+	std::list<ConsoleGameObject*>& BodyGroup
+		= ConsoleObjectManager::GetGroup(SnakeEnum::Body);
+
+
+	for (ConsoleGameObject* Ptr : HeadGroup) //헤드 그룹을 순회하면서 
 	{
-		// 터질때가 있습니다.
 		if (nullptr == Ptr)
 		{
 			continue;
 		}
-		int2 HeadPos = Ptr->GetPos();
-		int2 HeadPrevPos = Ptr->GetPrevPos();
 
-		if (true==(NextPos != HeadPos))
-		{
-			NextPos = HeadPrevPos;
-		}
+		int2 HeadPos = HeadGroup.back()->GetPos();
+		int2 HeadPrevPos = HeadGroup.back()->GetPrevPos();
 
-		Pos = NextPos;
+		//if (true == (NextPos != HeadPos))   // 다음위치가 헤드위치가 아니라면 (처음 바디가 생길때)
+		//{
+		//	NextPos = HeadPrevPos;          // 다음 위치에 
+		//}
+
+		Pos = HeadPrevPos;
 		NextPos = HeadPos;
 
 	}
+	SetPrevPos();
+	
+	for (ConsoleGameObject* Ptr : BodyGroup)  // 바디그룹 순회하면서
+	{
+		if (nullptr == Ptr)
+		{
+			continue;
+		}
+
+		int2 BodyPos = BodyGroup.back()->GetPos();    // 바디그룹 제일 뒤에꺼의 포스를 bodypos로 받고
+		int2 BodyPrevPos = BodyGroup.back()->GetPrevPos(); // 제일뒤에꺼의 PrevPos를 BodyPrevPos로 받는다.
+
+		//if (true == (NextPos != HeadPos))   // 다음위치가 헤드위치가 아니라면 (처음 바디가 생길때)
+		//{
+		//	NextPos = HeadPrevPos;          // 다음 위치에 
+		//}
+
+		Pos = BodyPrevPos;            // 현재 Body의 Pos에 마지막 Body의 PrevPos를 넣는다.
+		NextPos = BodyPos;
+
+	}
+	
 	
 	
 
