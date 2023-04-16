@@ -1,8 +1,7 @@
 #pragma once
 #include <GameEngineConsole/ConsoleGameObject.h>
 #include "Parts.h"
-#include <GameEngineConsole/ConsoleObjectManager.h>
-#include "SnakeEnum.h"
+
 
 class ConsoleGameScreen;
 class Body : public Parts
@@ -19,11 +18,13 @@ public:
 	Body& operator=(Body&& _Other) noexcept = delete;
 
 	void Update() override;
-	void Update2();
+	void Death() override;
+	void CreateBody();
+
 protected:
 
+
 private:
-	int BodyCount = 0;
 
 };
 

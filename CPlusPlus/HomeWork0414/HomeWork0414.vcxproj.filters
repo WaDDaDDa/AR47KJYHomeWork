@@ -6,13 +6,11 @@
     <ClCompile Include="Body.cpp" />
     <ClCompile Include="Parts.cpp" />
     <ClCompile Include="SnakeEnum.cpp" />
-    <ClCompile Include="feed.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Head.h" />
     <ClInclude Include="Body.h" />
     <ClInclude Include="Parts.h" />
     <ClInclude Include="SnakeEnum.h" />
-    <ClInclude Include="feed.h" />
   </ItemGroup>
 </Project>

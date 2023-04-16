@@ -11,22 +11,17 @@
 #include "Body.h"
 #include <conio.h>
 #include "SnakeEnum.h"
-#include "feed.h"
+
 
 int main()
 {
-	//while (true)
-	//{
-	//	printf_s("%d\n", GameEngineRandom::MainRandom.RandomInt(0, 100));
-	//}
-
 	GameEngineDebug::LeckCheck();
 
-	int2 ScreenSize = { 10, 10 };
+	int2 ScreenSize = { 6, 6 };
 	ConsoleGameScreen::GetMainScreen().SetScreenSize(ScreenSize);
 
 	ConsoleObjectManager::CreateConsoleObject<Head>(SnakeEnum::Head);
-	ConsoleObjectManager::CreateConsoleObject<feed>(SnakeEnum::feed);
+	ConsoleObjectManager::CreateConsoleObject<Body>(SnakeEnum::Body);
 
 
 	// 1번째 

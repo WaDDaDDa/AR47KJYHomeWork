@@ -20,7 +20,7 @@ public:
 		return DeathValue;
 	}
 
-	void Death()
+	virtual void Death()
 	{
 		DeathValue = true;
 	}
@@ -43,35 +43,26 @@ public:
 	virtual void Update();
 	virtual void Render();
 
-	inline void SetNextPos(const int2& _Value)
+
+
+	inline bool GetDataValue()const
 	{
-		NextPos = _Value;
+		return DataValue;
 	}
 
-	inline int2 GetNextPos() const
+	inline void SetDataValue(bool _bValue)
 	{
-		return NextPos;
-	}
-
-	inline void SetPrevPos()
-	{
-		PrevPos = Pos;
-	}
-
-	inline int2 GetPrevPos() const
-	{
-		return PrevPos;
+		DataValue = _bValue;
 	}
 
 protected:
 	int2 Pos;
-	int2 NextPos;
-	int2 PrevPos;
 	char RenderChar = ' ';
 
 private:
 	bool UpdateValue = true;
 	bool DeathValue = false;
+	bool DataValue = true;
 
 };
 

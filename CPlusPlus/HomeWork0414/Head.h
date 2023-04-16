@@ -16,6 +16,7 @@ public:
 	Head& operator=(Head&& _Other) noexcept = delete;
 
 	static bool IsPlay;
+	static bool IsBody;
 
 protected:
 	void Update() override;

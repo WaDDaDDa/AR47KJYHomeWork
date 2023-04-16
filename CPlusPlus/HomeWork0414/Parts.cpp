@@ -13,3 +13,8 @@ void Parts::Update()
 {
 	ConsoleGameObject::Update();
 }
+
+void Parts::Death()
+{
+	ConsoleGameObject::Death();
+}

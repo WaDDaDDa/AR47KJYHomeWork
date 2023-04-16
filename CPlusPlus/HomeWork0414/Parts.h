@@ -15,16 +15,20 @@ public:
 	Parts& operator=(const Parts& _Other) = delete;
 	Parts& operator=(Parts&& _Other) noexcept = delete;
 
-	void push_back(Parts* _parts) 
+	int2 GetBeforePos() const
 	{
-		Next = _parts;
+		return BeforePos;
 	}
+
 
 protected:
 	void Update() override;
+	void Death() override;
+	Parts* Prev = nullptr;
+	Parts* Next = nullptr;
+	int2 BeforePos = { 0 , 0 };
+
 
 private:
-	Parts* Next = nullptr;
-	Parts* Prev = nullptr;
 };
 

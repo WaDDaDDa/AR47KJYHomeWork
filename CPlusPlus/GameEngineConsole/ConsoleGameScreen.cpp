@@ -126,3 +126,9 @@ int2 ConsoleGameScreen::GetScreenSize()
 {
 	return Size;
 }
+
+char ConsoleGameScreen::GetScreenChar(const int2& _Pos) const
+{
+	char screenchar = ArrScreen[_Pos.Y][_Pos.X];
+	return screenchar;
+}

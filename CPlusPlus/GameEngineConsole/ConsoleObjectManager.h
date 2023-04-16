@@ -26,9 +26,13 @@ public:
 		}
 
 		std::list<ConsoleGameObject*>& Group = AllObject[_Order];
+
 		ObjectType* NewObject = new ObjectType();
+
 		// Player* NewObject = new Player();
+
 		Group.push_back(NewObject);
+
 		return NewObject;
 	}
 

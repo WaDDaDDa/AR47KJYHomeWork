@@ -46,28 +46,17 @@ void ConsoleObjectManager::ConsoleAllObjectRender()
 
 	for (size_t GroupIndex = 0; GroupIndex < AllObject.size(); GroupIndex++)
 	{
-		// std::list
 		std::list<ConsoleGameObject*>& Group = AllObject[GroupIndex];
-
-		std::list<ConsoleGameObject*>::iterator Start = Group.begin();
-		std::list<ConsoleGameObject*>::iterator End = Group.end();
-
-		for (; Start != End; ++Start)
+		for (ConsoleGameObject* Object : Group)
 		{
-			ConsoleGameObject* Object = *Start;
-
 			if (nullptr == Object || false == Object->IsUpdate())
 			{
 				continue;
 			}
-
 			Object->Render();
 		}
-
 	}
-
 	ConsoleGameScreen::GetMainScreen().ScreenPrint();
-
 }
 
 void ConsoleObjectManager::ConsoleAllObjectDelete()
