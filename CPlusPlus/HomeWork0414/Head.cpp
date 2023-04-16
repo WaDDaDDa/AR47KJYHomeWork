@@ -21,9 +21,12 @@ Head::~Head()
 void Head::IsBodyCheck()
 {
 	std::list<ConsoleGameObject*>& FeedGroup
-		= ConsoleObjectManager::GetGroup(SnakeEnum::feed); // 아이템그룹을 받고
+		= ConsoleObjectManager::GetGroup(SnakeEnum::feed); // 먹이 그룹을 받고
 
-	for (ConsoleGameObject* Ptr : FeedGroup)
+	std::list<ConsoleGameObject*>& BodyGroup
+		= ConsoleObjectManager::GetGroup(SnakeEnum::Body); // 바디 그룹을 받고
+
+	for (ConsoleGameObject* Ptr : FeedGroup)  // 헤드가 먹이와 충돌할 경우.
 	{
 		if (nullptr == Ptr)
 		{
@@ -31,12 +34,29 @@ void Head::IsBodyCheck()
 		}
 
 		int2 FeedPos = Ptr->GetPos();
-		if (Pos == FeedPos)   // 현재위치가 바디 그룹이면
+		if (Pos == FeedPos)   // 현재위치가 먹이 그룹이면
 		{
 			
 			Ptr->Death();    // 피드 죽이고    피드 와 바디 크리에이트
 			ConsoleObjectManager::CreateConsoleObject<Body>(SnakeEnum::Body);
 			ConsoleObjectManager::CreateConsoleObject<feed>(SnakeEnum::feed);
+
+			return;
+		}
+	}
+
+	for (ConsoleGameObject* Ptr : BodyGroup) //헤드가 바디와 충돌할 경우
+	{
+		if (nullptr == Ptr)
+		{
+			continue;
+		}
+
+		int2 BodyPos = Ptr->GetPos();
+		if (Pos == BodyPos)   // 현재위치가 바디 그룹이면
+		{
+
+			IsPlay = false;    
 
 			return;
 		}
