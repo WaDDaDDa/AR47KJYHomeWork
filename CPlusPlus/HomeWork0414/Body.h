@@ -9,6 +9,7 @@ class Body : public Parts
 public:
 	// constrcuter destructer
 	Body();
+	Body(int2 _Pos);
 	~Body();
 
 	// delete Function
@@ -19,12 +20,12 @@ public:
 
 	void Update() override;
 	void Death() override;
-	void CreateBody();
+	int2 ClearCheck();
 
 protected:
 
 
 private:
-
+	static int BodyCount;
 };
 

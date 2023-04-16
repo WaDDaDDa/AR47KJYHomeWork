@@ -4,14 +4,98 @@
 #include <GameEngineConsole/ConsoleObjectManager.h>
 #include "SnakeEnum.h"
 
+int Body::BodyCount = 0;
+
 Body::Body()
 {
 	RenderChar = '!';
 
-	int X = GameEngineRandom::MainRandom.RandomInt(0, ConsoleGameScreen::GetMainScreen().GetScreenSize().Half().X - 1);
-	int Y = GameEngineRandom::MainRandom.RandomInt(0, ConsoleGameScreen::GetMainScreen().GetScreenSize().Half().Y - 1);
+	if (0 == BodyCount)
+	{
+		int X = GameEngineRandom::MainRandom.RandomInt(0, ConsoleGameScreen::GetMainScreen().GetScreenSize().X - 1);
+		int Y = GameEngineRandom::MainRandom.RandomInt(0, ConsoleGameScreen::GetMainScreen().GetScreenSize().Y - 1);
 
-	SetPos({ X, Y });
+		SetPos({ X, Y });
+		BodyCount++;
+		return;
+	}
+
+	std::vector<int2> Map;
+	int2 MapSize = ConsoleGameScreen::GetMainScreen().GetScreenSize(); // 메인스크린의 크기를 받아온다
+	int2 MapPos = { 0,0 };
+
+	Map.reserve(MapSize.X * MapSize.Y);   // capacity를 x * y로 할당한다.
+
+	for (int y = 0; y < MapSize.Y; y++)
+	{
+		for (int x = 0; x < MapSize.X; x++)
+		{
+			MapPos = { x, y };
+			char temp = ConsoleGameScreen::GetMainScreen().GetScreenChar(MapPos);
+			if (temp == 'a')  // 화면상의 char 이 a라면 
+			{
+				Map.push_back(MapPos);  // 위치를 벡터에 저장.
+			}
+		}
+	}
+
+	if (0 == Map.size())   // 모든 화면을 체크했는데 push_back된것이 없다면 게임 종료.
+	{
+		system("cls");
+		printf_s("%s\n", "You Win");
+		exit(0);
+	}
+
+	int Index = GameEngineRandom::MainRandom.RandomInt(0, Map.size() - 1); // 0부터 원소의 갯수 -1 까지중에서 랜덤.
+	//this->SetPos(Map[Index]);
+	
+	SetPos(Map[Index]);
+}
+
+	//std::vector<std::vector<bool>> FoodGrid;
+
+	//int ScreenX = ConsoleGameScreen::GetMainScreen().GetScreenSize().X; // 메인스크린의 크기를 받아온다
+	//int ScreenY = ConsoleGameScreen::GetMainScreen().GetScreenSize().Y; // 메인스크린의 크기를 받아온다
+	//int2 MapPos = { 0,0 };
+	//FoodGrid.reserve(ScreenX * ScreenY);
+
+	//for (int y = 0; y < ScreenY; y++)
+	//{
+	//	for (int x = 0; x < ScreenX; x++)
+	//	{
+	//		MapPos = { x, y };
+	//		char temp = ConsoleGameScreen::GetMainScreen().GetScreenChar(MapPos);
+	//		if (temp == 'a')  // 화면상의 char 이 a라면 
+	//		{
+	//			FoodGrid[y][x] = true;
+	//		}
+	//		else
+	//		{
+	//			FoodGrid[y][x] = false;
+	//		}
+	//	}
+	//}
+
+	//while (true)
+	//{
+	//	int X = GameEngineRandom::MainRandom.RandomInt(0, ConsoleGameScreen::GetMainScreen().GetScreenSize().X - 1);
+	//	int Y = GameEngineRandom::MainRandom.RandomInt(0, ConsoleGameScreen::GetMainScreen().GetScreenSize().Y - 1);
+
+	//	bool FoodCheck = FoodGrid[Y][X];
+	//	if (true == FoodCheck)  // true라면 먹이생성.    false라면 ... 다시 랜덤. 말고 다른방법은?
+	//	{
+	//		SetPos({ X, Y });
+	//		return;
+	//	}
+	//}
+
+
+
+Body::Body(int2 _Pos)
+{
+	RenderChar = '!';
+
+	SetPos(_Pos);
 }
 
 Body::~Body()
@@ -29,15 +113,17 @@ void Body::Update()
 
 	if (false == ImFood && nullptr == Prev)    // 바디가 음식이 아니고 Prev가 null을 가르키고 있다면 (바디가 머리를 따라가는)
 	{
-		BeforePos = GetPos();                   // 이전 위치는  현재의 위치.
+		int2 PosValue = GetPos();                 // 이전 위치는  현재의 위치.
+		SetPrevPos(PosValue);
 		int2 CurPos = SnakeHead->GetPos();    // 머리의 현재위치는 이동할 바디의 위치
 		SetPos(CurPos);                       // 이동할 위치로 이동.
 	}
 
 	else if (false == ImFood && nullptr != Prev)   // 바디가 음식이 아니고 Prev가 null 이 아니라면 (바디가 바디를 따라가는)
 	{
-		BeforePos = GetPos();                        // 이전위치는 현재의 위치.
-		SetPos(Prev->GetBeforePos());                // 이전위치의 이전위치로 이동.
+		int2 PosValue = GetPos();
+		SetPrevPos(PosValue);                        // 이전위치는 현재의 위치.
+		SetPos(Prev->GetPrevPos());                // 이전위치의 이전위치로 이동.
 	}
 
 	else if (true == ImFood)          // 바디가 음식이라면 움직이면 안됨.
@@ -53,23 +139,24 @@ void Body:: Death()
 
 	if (nullptr != Prev) // Prev가 null을 가르키고 있지 않다면 
 	{
-		SetPos(Prev->GetBeforePos());
+		SetPos(Prev->GetPrevPos());
 	}
 
 	Body* NewBody = ConsoleObjectManager::CreateConsoleObject<Body>(SnakeEnum::Body); // Body를 생성
 	NewBody->Prev = this; // 생성된 Body의 이전주소를 지금의 주소로
 	Next = NewBody;       // 다음주소를 생성된 바디의 주소로 넘김.
 	// 다시 랜덤한 바디 생성.
-	NewBody->CreateBody();
+	// NewBody->ClearCheck();
 }
 
 
-void Body::CreateBody()     // create feed
+int2 Body::ClearCheck()     // 먹이생성 할때 클리어 여부와 몸통과 머리에 생성되지 않게 체크.
 {
 	std::vector<int2> Map;
-	int2 MapSize = ConsoleGameScreen::GetMainScreen().GetScreenSize();
+	int2 MapSize = ConsoleGameScreen::GetMainScreen().GetScreenSize(); // 메인스크린의 크기를 받아온다
 	int2 MapPos = { 0,0 };
-	Map.reserve(MapSize.X * MapSize.Y);
+
+	Map.reserve(MapSize.X * MapSize.Y);   // capacity를 x * y로 할당한다.
 
 	for (int y = 0; y < MapSize.Y; y++)
 	{
@@ -77,22 +164,23 @@ void Body::CreateBody()     // create feed
 		{
 			MapPos = { x, y };
 			char temp = ConsoleGameScreen::GetMainScreen().GetScreenChar(MapPos);
-			if (temp == 'a')
+			if (temp == 'a')  // 화면상의 char 이 a라면 
 			{
-				Map.push_back(MapPos);
+				Map.push_back(MapPos);  // 위치를 벡터에 저장.
 			}
 		}
 	}
 
-	if (0 == Map.size())
+	if (0 == Map.size())   // 모든 화면을 체크했는데 push_back된것이 없다면 게임 종료.
 	{
 		system("cls");
 		printf_s("%s\n", "You Win");
 		exit(0);
 	}
 
-	int Index = GameEngineRandom::MainRandom.RandomInt(0, Map.size() - 1);
-	this->SetPos(Map[Index]);
+	int Index = GameEngineRandom::MainRandom.RandomInt(0, Map.size() - 1); // 0부터 원소의 갯수 -1 까지중에서 랜덤.
+	//this->SetPos(Map[Index]);
+	return Map[Index];
 }
 
 

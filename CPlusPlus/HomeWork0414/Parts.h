@@ -15,9 +15,14 @@ public:
 	Parts& operator=(const Parts& _Other) = delete;
 	Parts& operator=(Parts&& _Other) noexcept = delete;
 
-	int2 GetBeforePos() const
+	inline int2 GetPrevPos() const
 	{
-		return BeforePos;
+		return PrevPos;
+	}
+
+	inline void SetPrevPos(int2 _setpos)
+	{
+		PrevPos = _setpos;
 	}
 
 
@@ -26,7 +31,7 @@ protected:
 	void Death() override;
 	Parts* Prev = nullptr;
 	Parts* Next = nullptr;
-	int2 BeforePos = { 0 , 0 };
+	int2 PrevPos = { 0 , 0 };
 
 
 private:
