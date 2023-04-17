@@ -9,7 +9,7 @@ class Body : public Parts
 public:
 	// constrcuter destructer
 	Body();
-	Body(int2 _Pos);
+	
 	~Body();
 
 	// delete Function
@@ -20,7 +20,6 @@ public:
 
 	void Update() override;
 	void Death() override;
-	int2 ClearCheck();
 
 protected:
 
