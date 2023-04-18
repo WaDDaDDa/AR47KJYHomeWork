@@ -18,9 +18,6 @@ public:
 	Body& operator=(const Body& _Other) = delete;
 	Body& operator=(Body&& _Other) noexcept = delete;
 
-	void Update() override;
-	void Death() override;
-
 protected:
 
 

@@ -27,9 +27,12 @@ public:
 
 	bool IsScreenOver(const int2& _Pos) const;
 
-	void SetScreenCharacter(const int2& _Pos, char _Ch);
+	void SetScreenCharacter(const int2& _Pos, wchar_t _Ch);
 
-	char GetScreenChar(const int2& _Pos) const;
+	wchar_t GetScreenChar(const int2& _Pos) const;
+
+	wchar_t GetMainScreenChar()const;
+
 
 protected:
 
@@ -40,10 +43,10 @@ private:
 
 	// GameEngineArray<char> ArrPtr 여러개 
 	// char를 여러개 가질수 있는 녀석
-	std::vector<std::vector<char>> ArrScreen;
+	std::vector<std::vector<wchar_t>> ArrScreen;
 
 	int2 Size;
-
+	wchar_t MainScreenChar = L'□';
 	// 캐릭터의 배열을 가진 또다른 배열이라고 할수 있어요.
 
 

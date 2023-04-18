@@ -5,7 +5,7 @@
 class ConsoleGameObject
 {
 public:
-	inline void SetPos(const int2& _Value)
+	virtual inline void SetPos(const int2& _Value)
 	{
 		Pos = _Value;
 	}
@@ -54,10 +54,21 @@ public:
 	{
 		DataValue = _bValue;
 	}
+	
+	inline void ChangeRenderChar(const wchar_t _Char)
+	{
+		RenderChar = _Char;
+	}
+
+	inline wchar_t GetRenderChar()const
+	{
+		return RenderChar;
+	}
+
 
 protected:
 	int2 Pos;
-	char RenderChar = ' ';
+	wchar_t RenderChar = L' ';
 
 private:
 	bool UpdateValue = true;

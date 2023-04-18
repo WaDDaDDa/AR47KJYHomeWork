@@ -61,8 +61,8 @@ void Player::GetItem()
 
 		int2 ItemPos = Ptr->GetPos(); 
 		if (Pos == ItemPos)   // 현재위치가 아이템 그룹이면
-		{
-			BombPower++;     // 플레이어의 bombpower 늘리고
+		{ // 나중에 코드의 재활용성을 생각하면 BombPower++이 아이템에서 일어나게 하면 더좋다.
+			BombPower++;     // 플레이어의 bombpower 늘리고 
 			Ptr->Death();    // 아이템 죽이고    아이템 크리에이트
 			ConsoleObjectManager::CreateConsoleObject<Item>(ObjectOrder::Item); 
 			
