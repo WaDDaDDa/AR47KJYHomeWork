@@ -83,7 +83,6 @@ void Head::Update()
 
 	char Ch = _getch();
 
-
 	switch (Ch)
 	{
 	case 'a':
