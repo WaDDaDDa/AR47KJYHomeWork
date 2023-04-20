@@ -101,15 +101,15 @@ int main()
         std::map<int, int>::iterator StartIter = Test.begin();
         std::map<int, int>::iterator EndIter = Test.end();
 
-        for (; StartIter != EndIter; ++StartIter)
-        {
-            // Key 
-            // StartIter->first = 20;
+        //for (; StartIter != EndIter; ++StartIter)
+        //{
+        //    // Key 
+        //    // StartIter->first = 20;
 
-            std::cout << StartIter->first << std::endl;
-            // Value
-            //StartIter->second = 60;
-        }
+        //    std::cout << StartIter->first << std::endl;
+        //    // Value
+        //    //StartIter->second = 60;
+        //}
 
         //for (const std::pair<int, int>& Value : Test)
         //{
@@ -119,12 +119,20 @@ int main()
 
     {
         GameEngineMap Test;
+        Test.insert(GameEnginePair(10, rand()));
+        Test.insert(GameEnginePair(7, rand()));
+        Test.insert(GameEnginePair(15, rand()));
+        Test.insert(GameEnginePair(25, rand()));
+        Test.insert(GameEnginePair(17, rand()));
+        Test.insert(GameEnginePair(15, rand())); // 중복키 안들어가게 하는거 확인용.
+        Test.insert(GameEnginePair(18, rand()));
+        Test.insert(GameEnginePair(2, rand()));
+        Test.insert(GameEnginePair(6, rand()));
         Test.insert(GameEnginePair(5, rand()));
         Test.insert(GameEnginePair(4, rand()));
-        Test.insert(GameEnginePair(7, rand()));
+        Test.insert(GameEnginePair(9, rand()));
+        Test.insert(GameEnginePair(8, rand()));
         Test.insert(GameEnginePair(1, rand()));
-        Test.insert(GameEnginePair(2, rand()));
-        Test.insert(GameEnginePair(15, rand()));
 
         int a = 0;
 
@@ -134,6 +142,16 @@ int main()
 
         GameEngineMap::iterator StartIter = Test.begin();
         GameEngineMap::iterator EndIter = Test.end();
+
+        {
+            GameEngineMap::iterator FindIter = Test.find(4);
+           // GameEngineMap::iterator NextIter = Test.erase(FindIter);
+        }
+
+        {
+            GameEngineMap::iterator FindIter = Test.find(15);
+            GameEngineMap::iterator NextIter = Test.erase(FindIter);
+        }
 
         for (; StartIter != EndIter; ++StartIter)
         {
