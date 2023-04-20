@@ -61,6 +61,16 @@ public:
 
 		MapNode* PrevNode()
 		{
+			if (nullptr != LeftChild)
+			{
+				return LeftChild->MaxNode();
+			}
+
+			if (nullptr != Parent)
+			{
+				return OverParentNode();
+			}
+
 			return nullptr;
 		}
 
@@ -363,17 +373,17 @@ public:
 			return end();
 		}
 
-		return iterator(Root->MinNode());
+		return iterator(Root->MaxNode());
 	}
 	// ???
 	iterator rend()
 	{
 		if (nullptr == Root)
 		{
-			return end();
+			return nullptr;
 		}
 
-		return iterator(Root->MinNode());
+		return Root;
 	}
 
 

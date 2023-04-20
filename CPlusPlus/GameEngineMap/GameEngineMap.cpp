@@ -86,7 +86,6 @@ int main()
             = Test.insert(std::pair<int, int>(15, rand()));
 
         std::map<int, int>::iterator FindIter = Test.find(15);
-
         // 탐색을 용이하게 하기 위해서 사용한다.
         // 사용성이 좋아요.
 
@@ -100,6 +99,7 @@ int main()
 
         std::map<int, int>::iterator StartIter = Test.begin();
         std::map<int, int>::iterator EndIter = Test.end();
+   
 
         //for (; StartIter != EndIter; ++StartIter)
         //{
