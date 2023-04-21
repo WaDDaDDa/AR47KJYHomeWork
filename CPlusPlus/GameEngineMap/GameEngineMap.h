@@ -3,10 +3,10 @@
 
 class iterator;
 
-typedef int KeyType;
-typedef int ValueType;
+// typedef int KeyType;
+// typedef int ValueType;
 
-// template <typename KeyType, typename ValueType>
+template <typename KeyType, typename ValueType>
 class GameEnginePair
 {
 public:
@@ -28,6 +28,7 @@ public:
 };
 
 // 설명 :
+template <typename KeyType, typename ValueType>
 class GameEngineMap
 {
 public:
@@ -43,7 +44,7 @@ public:
 		MapNode* Parent = nullptr;
 		MapNode* LeftChild = nullptr;
 		MapNode* RightChild = nullptr;
-		GameEnginePair Pair;
+		GameEnginePair<KeyType, ValueType> Pair;
 
 		bool IsLeaf()
 		{
@@ -211,7 +212,7 @@ public:
 			return this;
 		}
 		// 루트에서 부터 왼쪽 자식들을 차례대로 먼저 순회하고 왼쪽을 다순회했으면
-		//  다시 하나씩올라오면서 오른쪽도 똑같이 체크.
+		// 다시 하나씩올라오면서 오른쪽도 똑같이 체크.
 		void FirstOrder() 
 		{
 			std::cout << Pair.first << std::endl;
@@ -255,12 +256,13 @@ public:
 
 			std::cout << Pair.first << std::endl;
 		}
-
-		void LastOrderdelete() // 후위순으로 딜리트 하겠다.
+		// 후위순으로 딜리트 하겠다.
+		// 가장 말단부터 차례대로 delete 하기에는 LastOrder가 적합하다.
+		void LastOrderdelete() 
 		{
 			MapNode* CurNode = this;
 			
-			if (nullptr == CurNode) // 노드가 한개도 없을때 rootnode가 null일때.
+			if (nullptr == CurNode) // 맵에 노드가 한개도 없을때 rootnode가 null일때.
 			{
 				return;
 			}
@@ -301,7 +303,7 @@ public:
 
 		}
 
-		GameEnginePair* operator->()
+		GameEnginePair<KeyType, ValueType>* operator->()
 		{
 			return &Node->Pair;
 		}
@@ -478,7 +480,7 @@ public:
 
 
 	// 안들어가면 false리턴
-	bool insert(const GameEnginePair& _Pair)
+	bool insert(const GameEnginePair<KeyType, ValueType>& _Pair)
 	{
 		if (nullptr == Root)
 		{

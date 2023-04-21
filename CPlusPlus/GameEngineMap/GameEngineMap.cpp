@@ -30,71 +30,76 @@ int main()
     GameEngineDebug::LeckCheck();
 
     {
-        GameEngineMap Test;
-        Test.insert(GameEnginePair(10, rand()));
-        Test.insert(GameEnginePair(7, rand()));
-        Test.insert(GameEnginePair(15, rand()));
-        Test.insert(GameEnginePair(25, rand()));
-        Test.insert(GameEnginePair(17, rand()));
-        Test.insert(GameEnginePair(18, rand()));
-        Test.insert(GameEnginePair(2, rand()));
-        Test.insert(GameEnginePair(6, rand()));
-        Test.insert(GameEnginePair(5, rand()));
-        Test.insert(GameEnginePair(4, rand()));
-        Test.insert(GameEnginePair(9, rand()));
-        Test.insert(GameEnginePair(8, rand()));
-        Test.insert(GameEnginePair(1, rand()));
-        GameEngineMap Test13;
-        Test13.insert(GameEnginePair(13, rand()));
-        Test13.insert(GameEnginePair(6, rand()));
-        GameEngineMap Test14;
-        Test14.insert(GameEnginePair(14, rand()));
-        Test14.insert(GameEnginePair(3, rand()));
-        Test14.insert(GameEnginePair(6, rand()));
-        GameEngineMap Test15;
-        Test15.insert(GameEnginePair(15, rand()));
-        GameEngineMap Tset16;
+        GameEngineMap<int,int> Test;
+        Test.insert(GameEnginePair<int, int>(10, rand()));
+        Test.insert(GameEnginePair<int,int>(7, rand()));
+        Test.insert(GameEnginePair<int,int>(15, rand()));
+        Test.insert(GameEnginePair<int,int>(25, rand()));
+        Test.insert(GameEnginePair<int,int>(17, rand()));
+        Test.insert(GameEnginePair<int,int>(18, rand()));
+        Test.insert(GameEnginePair<int,int>(2, rand()));
+        Test.insert(GameEnginePair<int,int>(6, rand()));
+        Test.insert(GameEnginePair<int,int>(5, rand()));
+        Test.insert(GameEnginePair<int,int>(4, rand()));
+        Test.insert(GameEnginePair<int,int>(9, rand()));
+        Test.insert(GameEnginePair<int,int>(8, rand()));
+        Test.insert(GameEnginePair<int,int>(1, rand()));
+
+
+        GameEngineMap<char, int> Test2;
+        Test2.insert(GameEnginePair<char, int>('d', rand()));
+        Test2.insert(GameEnginePair<char, int>('a', rand()));
+        Test2.insert(GameEnginePair<char, int>('5', rand()));
+        Test2.insert(GameEnginePair<char, int>('g', rand()));
+        Test2.insert(GameEnginePair<char, int>('8', rand()));
+        Test2.insert(GameEnginePair<char, int>('h', rand()));
+        Test2.insert(GameEnginePair<char, int>('1', rand()));
+        Test2.insert(GameEnginePair<char, int>('y', rand()));
+        Test2.insert(GameEnginePair<char, int>('o', rand()));
+        Test2.insert(GameEnginePair<char, int>('m', rand()));
+        Test2.insert(GameEnginePair<char, int>('p', rand()));
+        Test2.insert(GameEnginePair<char, int>('w', rand()));
+        Test2.insert(GameEnginePair<char, int>('z', rand()));
+
 
         //{
         //    GameEngineMap::iterator FindIter = Test.find(7);
         //    GameEngineMap::iterator NextIter = Test.erase(FindIter);
         //}
-        //{
-        //    GameEngineMap::iterator FindIter = Test.find(9);
-        //    GameEngineMap::iterator NextIter = Test.erase(FindIter);
-        //}
 
-        //{
-        //    GameEngineMap::iterator FindIter = Test.find(6);
-        //    GameEngineMap::iterator NextIter = Test.erase(FindIter);
-        //}
+        GameEngineMap<int, int>::iterator StartIter = Test.begin();
+        GameEngineMap<int, int>::iterator EndIter = Test.end();
+        GameEngineMap<char, int>::iterator StartIter2 = Test2.begin();
+        GameEngineMap<char, int>::iterator EndIter2 = Test2.end();
 
-        //{
-        //    GameEngineMap::iterator FindIter = Test.find(10);
-        //    GameEngineMap::iterator NextIter = Test.erase(FindIter);
-        //}
-
-
-        //{
-        //    GameEngineMap::iterator FindIter = Test.find(10);
-        //    GameEngineMap::iterator NextIter = Test.erase(FindIter);
-        //}
-
-
-        std::cout << "그냥 돌리기" << std::endl;
-        GameEngineMap::iterator StartIter = Test.begin();
-        GameEngineMap::iterator EndIter = Test.end();
+        // <int,int>
+        std::cout << "<int, int>그냥 돌리기" << std::endl;
         for (; StartIter != EndIter; ++StartIter)
         {
             std::cout << StartIter->first << std::endl;
         }
 
-        std::cout << "전위 순회" << std::endl;
+        std::cout << "<int, int>전위 순회" << std::endl;
         Test.FirstOrder();
-        std::cout << "중위 순회" << std::endl;
+        std::cout << "<int, int>중위 순회" << std::endl;
         Test.MidOrder();
-        std::cout << "후위 순회" << std::endl;
+        std::cout << "<int, int>후위 순회" << std::endl;
         Test.LastOrder();
+
+
+        // <char,int>
+        std::cout << "<char, int>그냥 돌리기" << std::endl;
+        for (; StartIter2 != EndIter2; ++StartIter2)
+        {
+            std::cout << StartIter2->first << std::endl;
+        }
+
+        std::cout << "<char,int>전위 순회" << std::endl;
+        Test2.FirstOrder();
+        std::cout << "<char,int>중위 순회" << std::endl;
+        Test2.MidOrder();
+        std::cout << "<char,int>후위 순회" << std::endl;
+        Test2.LastOrder();
     }
 
     return 1;
