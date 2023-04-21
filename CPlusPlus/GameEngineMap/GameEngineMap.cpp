@@ -4,13 +4,6 @@
 #include <list>
 #include "GameEngineMap.h"
 
-// Map은 트리구조를 가진다.
-// 노드 연관형 자료구조이다. (컨테이너)
-// Leftchild와 Rightchild가 있는데 왼쪽이 작은key  오른쪽이 큰key이다.
-// 그래서 이 법칙을 생각해보면.
-// Map의 가장 작은 key (int로 생각해보면 0) 에 접근하려면 Leftchild에 다른 노드를 가리키지 않는곳이
-// 가장작다.
-
 template<typename DataType0, typename DataType1>
 void TestValue(DataType0 _Data0, DataType1 _Data1)
 {
@@ -34,6 +27,78 @@ public:
 
 int main()
 {
+    GameEngineDebug::LeckCheck();
+
+    {
+        GameEngineMap Test;
+        Test.insert(GameEnginePair(10, rand()));
+        Test.insert(GameEnginePair(7, rand()));
+        Test.insert(GameEnginePair(15, rand()));
+        Test.insert(GameEnginePair(25, rand()));
+        Test.insert(GameEnginePair(17, rand()));
+        Test.insert(GameEnginePair(18, rand()));
+        Test.insert(GameEnginePair(2, rand()));
+        Test.insert(GameEnginePair(6, rand()));
+        Test.insert(GameEnginePair(5, rand()));
+        Test.insert(GameEnginePair(4, rand()));
+        Test.insert(GameEnginePair(9, rand()));
+        Test.insert(GameEnginePair(8, rand()));
+        Test.insert(GameEnginePair(1, rand()));
+        GameEngineMap Test13;
+        Test13.insert(GameEnginePair(13, rand()));
+        Test13.insert(GameEnginePair(6, rand()));
+        GameEngineMap Test14;
+        Test14.insert(GameEnginePair(14, rand()));
+        Test14.insert(GameEnginePair(3, rand()));
+        Test14.insert(GameEnginePair(6, rand()));
+        GameEngineMap Test15;
+        Test15.insert(GameEnginePair(15, rand()));
+        GameEngineMap Tset16;
+
+        //{
+        //    GameEngineMap::iterator FindIter = Test.find(7);
+        //    GameEngineMap::iterator NextIter = Test.erase(FindIter);
+        //}
+        //{
+        //    GameEngineMap::iterator FindIter = Test.find(9);
+        //    GameEngineMap::iterator NextIter = Test.erase(FindIter);
+        //}
+
+        //{
+        //    GameEngineMap::iterator FindIter = Test.find(6);
+        //    GameEngineMap::iterator NextIter = Test.erase(FindIter);
+        //}
+
+        //{
+        //    GameEngineMap::iterator FindIter = Test.find(10);
+        //    GameEngineMap::iterator NextIter = Test.erase(FindIter);
+        //}
+
+
+        //{
+        //    GameEngineMap::iterator FindIter = Test.find(10);
+        //    GameEngineMap::iterator NextIter = Test.erase(FindIter);
+        //}
+
+
+        std::cout << "그냥 돌리기" << std::endl;
+        GameEngineMap::iterator StartIter = Test.begin();
+        GameEngineMap::iterator EndIter = Test.end();
+        for (; StartIter != EndIter; ++StartIter)
+        {
+            std::cout << StartIter->first << std::endl;
+        }
+
+        std::cout << "전위 순회" << std::endl;
+        Test.FirstOrder();
+        std::cout << "중위 순회" << std::endl;
+        Test.MidOrder();
+        std::cout << "후위 순회" << std::endl;
+        Test.LastOrder();
+    }
+
+    return 1;
+
     {
         std::list<int> Value;
         Value.push_back(20);
@@ -85,7 +150,11 @@ int main()
         std::pair<std::map<int, int>::iterator, bool> Value5
             = Test.insert(std::pair<int, int>(15, rand()));
 
-        std::map<int, int>::iterator FindIter = Test.find(15);
+        std::map<int, int>::iterator FindIter = Test.find(1);
+        std::map<int, int>::iterator NextIter = Test.erase(FindIter);
+
+        int a = 0;
+
         // 탐색을 용이하게 하기 위해서 사용한다.
         // 사용성이 좋아요.
 
@@ -99,17 +168,16 @@ int main()
 
         std::map<int, int>::iterator StartIter = Test.begin();
         std::map<int, int>::iterator EndIter = Test.end();
-   
 
-        //for (; StartIter != EndIter; ++StartIter)
-        //{
-        //    // Key 
-        //    // StartIter->first = 20;
+        // for (; StartIter != EndIter; ++StartIter)
+        // {
+            // Key 
+            // StartIter->first = 20;
 
-        //    std::cout << StartIter->first << std::endl;
-        //    // Value
-        //    //StartIter->second = 60;
-        //}
+            // std::cout << StartIter->first << std::endl;
+            // Value
+            //StartIter->second = 60;
+        // }
 
         //for (const std::pair<int, int>& Value : Test)
         //{
@@ -117,46 +185,4 @@ int main()
         //}
     }
 
-    {
-        GameEngineMap Test;
-        Test.insert(GameEnginePair(10, rand()));
-        Test.insert(GameEnginePair(7, rand()));
-        Test.insert(GameEnginePair(15, rand()));
-        Test.insert(GameEnginePair(25, rand()));
-        Test.insert(GameEnginePair(17, rand()));
-        Test.insert(GameEnginePair(15, rand())); // 중복키 안들어가게 하는거 확인용.
-        Test.insert(GameEnginePair(18, rand()));
-        Test.insert(GameEnginePair(2, rand()));
-        Test.insert(GameEnginePair(6, rand()));
-        Test.insert(GameEnginePair(5, rand()));
-        Test.insert(GameEnginePair(4, rand()));
-        Test.insert(GameEnginePair(9, rand()));
-        Test.insert(GameEnginePair(8, rand()));
-        Test.insert(GameEnginePair(1, rand()));
-
-        int a = 0;
-
-        GameEngineMap::iterator FindIter = Test.find(15);
-
-        FindIter->second = 20;
-
-        GameEngineMap::iterator StartIter = Test.begin();
-        GameEngineMap::iterator EndIter = Test.end();
-
-        {
-            GameEngineMap::iterator FindIter = Test.find(4);
-           // GameEngineMap::iterator NextIter = Test.erase(FindIter);
-        }
-
-        {
-            GameEngineMap::iterator FindIter = Test.find(15);
-            GameEngineMap::iterator NextIter = Test.erase(FindIter);
-        }
-
-        for (; StartIter != EndIter; ++StartIter)
-        {
-            std::cout << StartIter->first << std::endl;
-        }
-    }
 }
-

@@ -1,9 +1,12 @@
 #pragma once
 #include <GameEngineBase/GameEngineDebug.h>
 
+class iterator;
+
 typedef int KeyType;
 typedef int ValueType;
 
+// template <typename KeyType, typename ValueType>
 class GameEnginePair
 {
 public:
@@ -21,12 +24,18 @@ public:
 	{
 
 	}
+
 };
 
 // 설명 :
 class GameEngineMap
 {
 public:
+
+	~GameEngineMap()
+	{
+		Root->LastOrderdelete();
+	}
 
 	class MapNode
 	{
@@ -41,6 +50,29 @@ public:
 			return nullptr == LeftChild && nullptr == RightChild;
 		}
 
+		void ChangeChild(MapNode* _OldChild, MapNode* _NewChild)
+		{
+			if (_OldChild == LeftChild)
+			{
+				LeftChild = _NewChild;
+				if (nullptr != _NewChild)
+				{
+					_NewChild->Parent = this;
+				}
+				return;
+			}
+
+			if (_OldChild == RightChild)
+			{
+				RightChild = _NewChild;
+				if (nullptr != _NewChild)
+				{
+					_NewChild->Parent = this;
+				}
+				return;
+			}
+
+		}
 
 		MapNode* OverParentNode()
 		{
@@ -59,6 +91,24 @@ public:
 			return ParentNode;
 		}
 
+		MapNode* UnderParentNode()
+		{
+			MapNode* ParentNode = Parent;
+
+			while (Pair.first < ParentNode->Pair.first)
+			{
+				ParentNode = ParentNode->Parent;
+
+				if (nullptr == ParentNode)
+				{
+					return nullptr;
+				}
+			}
+
+			return ParentNode;
+		}
+
+
 		MapNode* PrevNode()
 		{
 			if (nullptr != LeftChild)
@@ -68,7 +118,7 @@ public:
 
 			if (nullptr != Parent)
 			{
-				return OverParentNode();
+				return UnderParentNode();
 			}
 
 			return nullptr;
@@ -160,29 +210,77 @@ public:
 
 			return this;
 		}
-
-		// 지워지기 직전에 해야할일
-		void Release()
+		// 루트에서 부터 왼쪽 자식들을 차례대로 먼저 순회하고 왼쪽을 다순회했으면
+		//  다시 하나씩올라오면서 오른쪽도 똑같이 체크.
+		void FirstOrder() 
 		{
-			if (nullptr == Parent) // 부모가 null인경우 그대로 리턴. (루트노드일경우에 해당함). 
+			std::cout << Pair.first << std::endl;
+			if (nullptr != LeftChild)  // left가 있으면 여기로
 			{
-				return;   // 그대로 리턴됨. (지워질 노드가 루트 노드라는뜻.)
+				LeftChild->FirstOrder();
 			}
-
-			if (this == Parent->LeftChild)   // 지워질 나와 내 부모의 왼쪽을 비교. (내가 왼쪽인지를 확인하기위함)
+			if (nullptr != RightChild) // right가 있으면 여기로.
 			{
-				Parent->LeftChild = nullptr;  // 내가 왼쪽자식이라면 부모의 LeftChild연결을 null 로끊어버린다.
-				return;
+				RightChild->FirstOrder();
 			}
-
-			if (this == Parent->RightChild)   // 지워질 내가 오른쪽 자식이면
+		}
+		// Min노드를 먼저 출력한다음에 그 다음 min노드를 찾아 출력하는 형식
+		// std::map의 방식이 이것.
+		void MidOrder() 
+		{
+			if (nullptr != LeftChild)
 			{
-				Parent->RightChild = nullptr;  // 부모의 RightChild 연결을 null로 끊어버린다.
-				return;
+				LeftChild->MidOrder();
+			}
+			std::cout << Pair.first << std::endl;
+			if (nullptr != RightChild)
+			{
+				RightChild->MidOrder();
 			}
 
 		}
+		// min노드를 가장먼저 출력하고 그 부모의 오른쪽의 민노드를 찾아 출력하고 한칸씩 올라오면서 순회
+		// 왼쪽을 먼저 차근차근 순회하고 오른쪽도 동일하게 순회하면 한칸씩올라오는 구조.
 
+		void LastOrder()
+		{
+			if (nullptr != LeftChild)
+			{
+				LeftChild->LastOrder();
+			}
+			if (nullptr != RightChild)
+			{
+				RightChild->LastOrder();
+			}
+
+			std::cout << Pair.first << std::endl;
+		}
+
+		void LastOrderdelete() // 후위순으로 딜리트 하겠다.
+		{
+			MapNode* CurNode = this;
+			
+			if (nullptr == CurNode) // 노드가 한개도 없을때 rootnode가 null일때.
+			{
+				return;
+			}
+
+			if (nullptr != LeftChild) 
+			{
+				LeftChild->LastOrderdelete(); //왼쪽 자식이 있으면 반복.
+			}
+
+			if (nullptr != RightChild)
+			{
+				RightChild->LastOrderdelete(); // 오른쪽 자식이 있으면 반복.
+			}
+
+			if (nullptr != CurNode)
+			{
+				delete CurNode;
+				CurNode = nullptr;
+			}
+		}
 	};
 
 	class iterator
@@ -269,38 +367,6 @@ public:
 		return iterator(FindNode);
 	}
 
-
-	// 노드가 지워지는 경우의 수를 생각해보자.
-	// 1. 자식이 하나도없는 노드가 지워질때.
-	// 2. 자식이 왼쪽이든 오른쪽이든 한개 있는 노드가 지워질때.
-	// 3. 자식이 왼쪽과 오른쪽 둘다 있는 노드가 지워질때.
-
-	// 1. 의경우   자식이 하나도 없는건. 자신이 리프일때이다. 그냥 지워져도 상관이 없다.
-	// 자신의 넥스트를 저장하고 자신은 지워지고 넥스트를 반환.
-
-	// 2 에서 왼쪽에만 자식이 있는 경우.
-	// 왼쪽자식을 자신의 위치에 대체되어 연결되게 만들어주고 자신은 지워진다. 그리고 왼쪽자식을 반환.
-	// 왼쪽자식이던게 지워질 자신의 부모와 연결되게 만들어야함.
-	// 지워질내가 부모의 오른쪽자식인지 왼쪽자식인지를 판별하고 왼쪽자식이면 왼쪽자식에 연결되게
-	// 오른쪽이면 오른쪽 자식에 연결되게.
-
-	// 자신을 지우고 자신의 nextnode가 자신의 자리를 대체시켜야함
-	// 1. 지워질 자신의 부모에게 자신을 잊어달라고한다.
-	// 2. 나의 next노드를 찾는다.
-	// 3. 나의 next 노드의 부모에게 나의next노드를 잊어달라고한다.
-	// 4. 나의 next 노드의 부모에게 나의 next노드의 자식을 알려준다.
-	// 8. 나의 next의 노드의 자식의 부모를 나의 next노드의 부모로 알려준다
-	// 5. 나의 next 노드에게 나의 부모를 알려준다.
-	// 6. 나의 부모에게 나의 next노드를 자식으로 알려준다.
-	// 7. 나의 next 노드에게 나의 자식을 알려준다.
-	// 9. 나의 자식노드에 next노드를 부모로 알려준다.
-
-	// 2에서 오른쪽에만 자식이 있는 경우.
-	//
-
-
-	// 3. 왼쪽 오른쪽 자식이 모두있는 노드가 지워질때.
-
 	iterator erase(const iterator& _EraseIter)
 	{
 		if (_EraseIter == end())
@@ -314,55 +380,84 @@ public:
 		MapNode* LeftChild = CurNode->LeftChild;
 
 		MapNode* ChangeNode = nullptr;
+		MapNode* ChangeNodeParent = nullptr;
 		MapNode* NextNode = CurNode->NextNode();
 
-		if (true == CurNode->IsLeaf())  // 1번의 경우 완료. (왼쪽오른쪽 둘다 null인지판별)
+		if (true == CurNode->IsLeaf())
 		{
-			CurNode->Release(); // 지워질 노드의 부모에게 자신을 끊어줌.
-			delete CurNode;     //  현재지울노드를 지운다.
-			CurNode = nullptr;  // null로 변경
-			return NextNode;    // 현재 지우기로 한 노드의 next를 반환.
-		}
-		// 2번의 경우에서 왼쪽에만 자식이 있을경우.
-		else if (nullptr == RightChild)  // 오른쪽이 null이면 왼쪽에는 자식이있다.
-		{
-			CurNode->Release();     // 부모가 자식을 끊은거고 자식은 부모를 기억하는중.
-			CurNode->Parent->LeftChild = LeftChild; //지워질 노드가 기억하는 부모의 왼쪽자식에 지워질 나의 왼쪽 자식을 전해준다.
-			CurNode->LeftChild->Parent = ParentNode; // 지워질 노드의 왼쪽 자식노드의 부모가 현재 지워질 나인걸 나의 부모로 해준다.
-			delete CurNode;
-			CurNode = nullptr;
-			return NextNode;
-		}
-		// 2번의 경우에서 오른쪽에만 자식이 있을경우.
-		else if (nullptr == LeftChild) // 왼쪽이 null이면 오른쪽에는 자식이있다.
-		{
-			// 자신을 지우고 자신의 nextnode가 자신의 자리를 대체시켜야함
-
-			// 1. 지워질 자신의 부모에게 자신을 잊어달라고한다.
-			CurNode->Release();     // 부모가 자식을 끊은거고 자식은 부모를 기억하는중.
-			// 2. 나의 next노드를 찾는다.
-			MapNode* CurNextNode = CurNode->NextNode();
-			// 3. 나의 next 노드의 부모에게 나의next노드를 잊어달라고한다.
-			CurNextNode->Release();
-			// 4. 나의 next 노드의 부모에게 나의 next노드의 자식을 알려준다.
-			// 4-1 next노드의 자식은 무조건 오른쪽 자식만 있다.
-			CurNextNode->Parent = CurNextNode->RightChild;
-			// 8. 나의 next의 노드의 자식의 부모를 나의 next노드의 부모로 알려준다
-			CurNextNode->RightChild->Parent = CurNextNode->Parent;
-			// 5. 나의 next 노드에게 나의 부모를 알려준다.
-			CurNextNode->Parent = ParentNode;
-			// 6. 나의 부모에게 나의 next노드를 자식으로 알려준다.
-			CurNode->Parent->RightChild = CurNextNode;
-			// 7. 나의 next 노드에게 나의 자식을 알려준다.
-			CurNextNode->RightChild = RightChild;
-			// 9. 나의 자식노드에 next노드를 부모로 알려준다.
-			CurNode->RightChild->Parent = CurNextNode;
-
-			delete CurNode;
-			CurNode = nullptr;
+			ParentNode->ChangeChild(CurNode, nullptr);
+			if (nullptr != CurNode)
+			{
+				delete CurNode;
+				CurNode = nullptr;
+			}
 			return NextNode;
 		}
 
+
+		// 교체될 노드는 절대로 양쪽을 모두 가진 노드일수 없다.
+		MapNode* ChangeChild = nullptr;
+		MapNode* ChangeParent = nullptr;
+
+		if (nullptr != LeftChild)
+		{
+			ChangeNode = LeftChild->MaxNode();
+			ChangeChild = ChangeNode->LeftChild;
+			ChangeParent = ChangeNode->Parent;
+		}
+		else if (nullptr != RightChild)
+		{
+			ChangeNode = RightChild->MinNode();
+			ChangeChild = ChangeNode->RightChild;
+			ChangeParent = ChangeNode->Parent;
+		}
+
+		if (nullptr == ChangeNode)
+		{
+			MsgBoxAssert("말도안돼");
+			return nullptr;
+		}
+
+		// 루트노드일 경우를 대비해서
+		// 체인지 노드의 뒷정리를 하는 기간
+		if (nullptr != ChangeParent)
+		{
+			ChangeParent->ChangeChild(ChangeNode, ChangeChild);
+		}
+
+
+		// 교체할 노드와 지워질 노드의 정보 교체를 한다.
+
+		if (nullptr != ParentNode)
+		{
+			ParentNode->ChangeChild(CurNode, ChangeNode);
+		}
+		else
+		{
+			ChangeNode->Parent = nullptr;
+			Root = ChangeNode;
+			// RootNode 
+		}
+
+
+		ChangeNode->LeftChild = LeftChild;
+		if (nullptr != LeftChild)
+		{
+			LeftChild->Parent = ChangeNode;
+		}
+		ChangeNode->RightChild = RightChild;
+		if (nullptr != RightChild)
+		{
+			RightChild->Parent = ChangeNode;
+		}
+
+		if (nullptr != CurNode)
+		{
+			delete CurNode;
+			CurNode = nullptr;
+		}
+
+		return NextNode;
 	}
 
 	// ????
@@ -378,12 +473,7 @@ public:
 	// ???
 	iterator rend()
 	{
-		if (nullptr == Root)
-		{
-			return nullptr;
-		}
-
-		return Root;
+		return end();
 	}
 
 
@@ -409,6 +499,22 @@ public:
 		return true;
 	}
 
+	void FirstOrder()
+	{
+		Root->FirstOrder();
+	}
+
+	void MidOrder()
+	{
+		Root->MidOrder();
+	}
+
+	void LastOrder()
+	{
+		Root->LastOrder();
+	}
+
+private:
 	MapNode* Root = nullptr;
 };
 
