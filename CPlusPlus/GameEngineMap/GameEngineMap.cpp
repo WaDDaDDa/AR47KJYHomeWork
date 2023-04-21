@@ -62,10 +62,10 @@ int main()
         Test2.insert(GameEnginePair<char, int>('z', rand()));
 
 
-        //{
-        //    GameEngineMap::iterator FindIter = Test.find(7);
-        //    GameEngineMap::iterator NextIter = Test.erase(FindIter);
-        //}
+        {
+            GameEngineMap<int, int>::iterator FindIter = Test.find(15);
+            GameEngineMap<int, int>::iterator NextIter = Test.erase(FindIter);
+        }
 
         GameEngineMap<int, int>::iterator StartIter = Test.begin();
         GameEngineMap<int, int>::iterator EndIter = Test.end();

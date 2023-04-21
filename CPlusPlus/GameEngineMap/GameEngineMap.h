@@ -51,21 +51,25 @@ public:
 			return nullptr == LeftChild && nullptr == RightChild;
 		}
 
-		void ChangeChild(MapNode* _OldChild, MapNode* _NewChild)
+
+		// 자식의 부모에게 교체될 Node를 알려주고 교체해달라고함.
+		// 부모가 가르키는 자식을 변경하는 함수.
+		// 새로운 자식도 부모를 인식시킴.
+		void ChangeChild(MapNode* _PastChild, MapNode* _NewChild)
 		{
-			if (_OldChild == LeftChild)
+			if (_PastChild == LeftChild) // 과거 자식이 부모의 왼쪽인지 오른쪽인지 판별.
 			{
-				LeftChild = _NewChild;
-				if (nullptr != _NewChild)
+				LeftChild = _NewChild;  // 왼쪽자식으로 판별되면 새로운자식을 부모의 왼자식으로 편입.
+				if (nullptr != _NewChild) // 새로운 자식이 nullptr이 아니라면
 				{
-					_NewChild->Parent = this;
+					_NewChild->Parent = this; // 새로운자식에게 부모가 자신이라는것을 알림.
 				}
 				return;
 			}
 
-			if (_OldChild == RightChild)
+			if (_PastChild == RightChild) // 과거 자식이 부모의 왼쪽인지 오른쪽인지 판별.
 			{
-				RightChild = _NewChild;
+				RightChild = _NewChild;  //오른쪽자식으로 판별되면 새로운자식을 부모의 오른자식으로 편입.
 				if (nullptr != _NewChild)
 				{
 					_NewChild->Parent = this;
@@ -376,16 +380,16 @@ public:
 			MsgBoxAssert("앤드를 삭제하려고 했습니다.");
 		}
 
-		MapNode* CurNode = _EraseIter.Node;
-		MapNode* ParentNode = CurNode->Parent;
-		MapNode* RightChild = CurNode->RightChild;
-		MapNode* LeftChild = CurNode->LeftChild;
+		MapNode* CurNode = _EraseIter.Node;     //삭제할 노드.					  15
+		MapNode* ParentNode = CurNode->Parent;  //삭제할 노드의 부모.             10
+		MapNode* RightChild = CurNode->RightChild; // 삭제할 노드의 오른쪽자식.   25
+		MapNode* LeftChild = CurNode->LeftChild;   // 삭제할 노드의 왼쪽 자식.    null
 
-		MapNode* ChangeNode = nullptr;
-		MapNode* ChangeNodeParent = nullptr;
+		MapNode* ChangeNode = nullptr;          //삭제될노드를 대체할 nextnode.
+		MapNode* ChangeNodeParent = nullptr;    //삭제될 노드를 대체할 nextnode의 부모.
 		MapNode* NextNode = CurNode->NextNode();
 
-		if (true == CurNode->IsLeaf())
+		if (true == CurNode->IsLeaf())    //CurNode가 왼,오 자식이 없다면.
 		{
 			ParentNode->ChangeChild(CurNode, nullptr);
 			if (nullptr != CurNode)
@@ -401,20 +405,21 @@ public:
 		MapNode* ChangeChild = nullptr;
 		MapNode* ChangeParent = nullptr;
 
-		if (nullptr != LeftChild)
+		// Next노드의 왼쪽 오른쪽 자식의 유무를 판단
+		if (nullptr != LeftChild)   // 삭제할노드의 LeftChild가 존재한다면.
 		{
 			ChangeNode = LeftChild->MaxNode();
 			ChangeChild = ChangeNode->LeftChild;
 			ChangeParent = ChangeNode->Parent;
 		}
-		else if (nullptr != RightChild)
+		else if (nullptr != RightChild) // 삭제할노드의 RightChild가 존재한다면.
 		{
-			ChangeNode = RightChild->MinNode();
-			ChangeChild = ChangeNode->RightChild;
-			ChangeParent = ChangeNode->Parent;
+			ChangeNode = RightChild->MinNode();    // NextNode임.
+			ChangeChild = ChangeNode->RightChild;  // NextNode의 오른쪽자식.
+			ChangeParent = ChangeNode->Parent;     // NextNode의 부모.
 		}
 
-		if (nullptr == ChangeNode)
+		if (nullptr == ChangeNode) // NextNode가 null일경우. (루트노드만 있는경우)
 		{
 			MsgBoxAssert("말도안돼");
 			return nullptr;
@@ -422,30 +427,31 @@ public:
 
 		// 루트노드일 경우를 대비해서
 		// 체인지 노드의 뒷정리를 하는 기간
-		if (nullptr != ChangeParent)
+		if (nullptr != ChangeParent)  //NextNode의 부모가 nullptr이 아니라면.
 		{
 			ChangeParent->ChangeChild(ChangeNode, ChangeChild);
+			// 삭제할 노드를 삭제하기전에 NextNode가 먼저 NextNode와 자기 자식을 판별하여 교체를한다.
 		}
 
 
 		// 교체할 노드와 지워질 노드의 정보 교체를 한다.
 
-		if (nullptr != ParentNode)
+		if (nullptr != ParentNode) // 부모가 null이아니라면. (현재 내가 루트가 아니라면)
 		{
-			ParentNode->ChangeChild(CurNode, ChangeNode);
+			ParentNode->ChangeChild(CurNode, ChangeNode); // 삭제할노드와 Next노드를 교체.
 		}
 		else
-		{
-			ChangeNode->Parent = nullptr;
-			Root = ChangeNode;
+		{ // 삭제되는 노드가 루트일경우.
+			ChangeNode->Parent = nullptr; // Next노드의 부모에 null을 넣고.
+			Root = ChangeNode;            // 루트는 Next노드가 된다.
 			// RootNode 
 		}
 
-
-		ChangeNode->LeftChild = LeftChild;
+		// 부모의 교체는 끝낫고 자식을 알려줘야한다.
+		ChangeNode->LeftChild = LeftChild; // Next노드의 LeftChild에 내가가지고 있던 자식을 알려줌.
 		if (nullptr != LeftChild)
 		{
-			LeftChild->Parent = ChangeNode;
+			LeftChild->Parent = ChangeNode;  // 그자식에게 부모가 Next노드임을 알림.
 		}
 		ChangeNode->RightChild = RightChild;
 		if (nullptr != RightChild)
@@ -453,13 +459,13 @@ public:
 			RightChild->Parent = ChangeNode;
 		}
 
-		if (nullptr != CurNode)
+		if (nullptr != CurNode)  // 전부다 끝나고 안전삭제.
 		{
 			delete CurNode;
 			CurNode = nullptr;
 		}
 
-		return NextNode;
+		return NextNode;   // 반환 값은 Next노드.
 	}
 
 	// ????
