@@ -45,7 +45,7 @@ int main()
         Test.insert(GameEnginePair<int,int>(8, rand()));
         Test.insert(GameEnginePair<int,int>(1, rand()));
 
-
+        // 템플릿 확인.
         GameEngineMap<char, int> Test2;
         Test2.insert(GameEnginePair<char, int>('d', rand()));
         Test2.insert(GameEnginePair<char, int>('a', rand()));
@@ -61,6 +61,8 @@ int main()
         Test2.insert(GameEnginePair<char, int>('w', rand()));
         Test2.insert(GameEnginePair<char, int>('z', rand()));
 
+        // 선언만해서 맵에 노드가 한개도 없을때 소멸자 확인.
+        GameEngineMap<int, int> Test3;
 
         {
             GameEngineMap<int, int>::iterator FindIter = Test.find(15);
