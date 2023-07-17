@@ -68,6 +68,11 @@ public:
 
 Player* Player::MainPlayer = nullptr;
 
+// 이 함수는 사실 맴버함수와 크게 차이가 없다.
+void Test(Player* const _This)
+{
+	_This->Attack();
+}
 
 // 객체지향의 첫번째 특징은 전역이 없어야 한다.
 void PlayerAttack()
@@ -81,9 +86,24 @@ void RamdaFunction(int _Value)
 };
 
 
+void TestAddRess(int* _Ptr)
+{
+
+}
+
+void FuncTTT(const int A)
+{
+
+}
 
 int main()
 {
+	{
+		int A = 0;
+
+		FuncTTT(A);
+	}
+
 	// 그중에서 제일 까다로운 것들이 함수포인터인데
 	// 함수포인터는 정말정말정말 많이 사용됩니다.
 	// 엔진들에서 정말로 많이 사용됩니다.
@@ -180,15 +200,11 @@ int main()
 		{
 			// 2000번지
 			NewPlayerPtr->Attack();
-
 			// NewPlayerPtr = nullptr;
-
 			A;
-			// std::cout << "람다 함수 입니다" << std::endl;
 		};
 
 		Func(10);
 	}
-
 
 }
